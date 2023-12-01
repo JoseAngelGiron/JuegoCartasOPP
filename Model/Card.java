@@ -27,6 +27,12 @@ public class Card {
         return value == card.value && Objects.equals(suit, card.suit);
     }
 
+    public static Card addCard(int value, String suit){
+
+        Card card =new Card(value,suit);
+
+        return card;
+    }
 
     public String getSuit() {
         return suit;

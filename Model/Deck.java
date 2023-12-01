@@ -2,31 +2,39 @@ package Model;
 
 public class Deck {
 
-
-    Card[] cards;
-
+    private static  Card[] cards = new Card[52];
 
 
-    public static void createDeck(){
+
+
+    public static Card[] createDeck(){
+        String[] palos = {"Diamantes","Picas","Corazones","Trebol"};
+        int index=0;
+        for (String palo: palos) {
+
+            for(int i =1;i<=13;i++){
+                cards[index++] = new Card(i,palo);
+
+            }
+        }
+        return cards;
+    }
+
+    public  void shuflle(){
 
 
     }
 
-    public static void shuflle(){
+    public  void removeCard(){
+
+
+    }
+    public  void getCard(){
 
 
     }
 
-    public static void removeCard(){
-
-
-    }
-    public static void getCard(){
-
-
-    }
-
-    public static int deckSize(){
+    public  int deckSize(){
 
 
         return 0;
