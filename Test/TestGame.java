@@ -10,12 +10,19 @@ public class TestGame {
 
     public static void main(String[] args) {
 
+
         Card[] cards = Model.Deck.createDeck();
+
+
 
         for(int i=0;i<cards.length;i++){
 
             System.out.println(cards[i]);
         }
+
+        System.out.println(Deck.deckSize(cards));
+
+
     }
 
 }
