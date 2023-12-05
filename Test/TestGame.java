@@ -2,6 +2,7 @@ package Test;
 
 import Model.Card;
 import Model.Deck;
+import Model.Player;
 
 
 
@@ -10,19 +11,25 @@ public class TestGame {
 
     public static void main(String[] args) {
 
+        Deck deck = new Deck();
+        deck.createDeck();
+        System.out.println(deck);
 
-        Card[] cards = Model.Deck.createDeck();
-
-
-
-        for(int i=0;i<cards.length;i++){
-
-            System.out.println(cards[i]);
-        }
-
-        System.out.println(Deck.deckSize(cards));
 
 
     }
 
 }
+/*
+int max puntos =0;ç
+
+for(jugadir j:jugador){
+    if(j.calculaPuntos<=21 && j.calculaPuntos >maxPuntos){
+        maxPuntos = j.calculaPuntos();
+        }
+
+}
+while(yo.calculapuntos()<maxpuntos){
+    yo.pideCartas()
+    }
+ */

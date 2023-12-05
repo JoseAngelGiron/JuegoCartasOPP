@@ -1,10 +1,11 @@
 package Model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Deck {
 
-    private static  Card[] cards = new Card[52];
+    private Card[] cards = new Card[52];
 
 
     /**
@@ -12,7 +13,7 @@ public class Deck {
      * Recibe el arreglo de cartas y los instancia con cada uno de los palos de 1 a 13
      * @return
      */
-    public static Card[] createDeck(){
+    public void createDeck(){
         String[] suits = {"Diamantes","Picas","Corazones","Trebol"};
         int index=0;
         for (String suit: suits) {
@@ -24,10 +25,12 @@ public class Deck {
 
         }
         shuffle();
-        return cards;
     }
 
-    public static void shuffle(){
+    /**
+     * Esta función baraja el arreglo. No devuelva nada porque recibe el arreglo y simplemente lo cambia de posición
+     */
+    public void shuffle(){
 
         Random rand = new Random();
 
@@ -58,8 +61,10 @@ public class Deck {
         return cards.length;
     }
 
-
-
-
-
+    @Override
+    public String toString() {
+        return "Deck{" +
+                "cards=" + Arrays.toString(cards) +
+                '}';
+    }
 }
