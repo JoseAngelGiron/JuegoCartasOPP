@@ -8,6 +8,14 @@ public class Deck {
     private Card[] cards = new Card[52];
 
 
+    public Card[] getCards() {
+        return cards;
+    }
+
+    public void setCards(Card[] cards) {
+        this.cards = cards;
+    }
+
     /**
      * Esta función instancia un arreglo de cartas.
      * Recibe el arreglo de cartas y los instancia con cada uno de los palos de 1 a 13
@@ -46,6 +54,21 @@ public class Deck {
         }
     }
 
+
+    public void addCard(Card[] cards) {
+        Card cardToBeAdded;
+
+        for (int i = 0; i <= 1; i++) {
+            int cardPosition = (int) (Math.random() * (52));
+
+            cardToBeAdded = this.cards[cardPosition];
+            this.cards[cardPosition] = null;
+            cards[i] = cardToBeAdded;
+
+        }
+
+
+    }
     public  void removeCard(){
 
 
@@ -54,11 +77,34 @@ public class Deck {
 
 
     }
-
-    public static int deckSize(Card[] cards){
+    /**
+     * Función que he hecho para comprobar la longitud de en un mazo.
+     * No tiene ninguna utilidad más alla del testeo
+     *
+     */
+    public int deckSize(Card[] cards){
 
 
         return cards.length;
+    }
+
+    /**
+     * Función que he hecho para comprobar que cuantas posiciones están vacías en un mazo.
+     * No tiene ninguna utilidad más alla del testeo
+     *
+     */
+    public  int howManyNulls(){
+        int acu =0;
+
+        for (int i=0;i<cards.length; i++){
+            if(this.cards[i]==null){
+                acu++;
+
+            }
+
+        }
+
+        return acu;
     }
 
     @Override
