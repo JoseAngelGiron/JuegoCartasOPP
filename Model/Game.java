@@ -11,20 +11,35 @@ public class Game {
 
 
 
-
-
-
-
         public void startGame(){
 
         }
         public void playDealerTurn(){
 
         }
-        public void checkBlackjack(Player[] player){
 
+        /**
+         * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
+         * de BlackJack cambia el atributo del jugador de blackJack a True
+         * @param players Recibe un arreglo de jugadores, es decir, los jugadores que van a jugar el juego.
+         */
+        public void checkBlackJack(Player[] players){
+                int acu =0;
+                for(int i =0;i< players.length;i++) {
+                        Card[] cards = players[i].getMano();
+                        for (int j=0;j<cards.length && cards[j] !=null;j++) {
+                                if (cards[j] != null) {
+                                        acu += cards[j].getValue();
+                                        if(acu==11){
+                                                players[i].setBlackJack(true);
+                                        }
+
+                                }
+                        }
+                }
 
         }
+
         public void checkBust(Player[] player){
 
 
@@ -40,7 +55,7 @@ public class Game {
                 Player[] players = new Player[numberOfPlayers+1];
 
                 for (int i=0;i<players.length;i++){
-                        players[i]  = new Player(0,names[i]);
+                        players[i]  = new Player(0,names[i], false);
                 }
 
                 return players;

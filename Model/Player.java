@@ -9,16 +9,23 @@ public class Player {
     private int puntos;
     private String nombre;
 
+    private boolean blackJack;
+
 
     public Player(){
-        this( 0,"Name1");
+        this( 0,"Name", false);
 
     }
 
-    public Player(int puntos, String nombre) {
+
+    public Player(int puntos, String nombre, boolean blackJack) {
         this.puntos = puntos;
         this.nombre = nombre;
+        this.blackJack = blackJack;
+
     }
+
+
 
     public int getPuntos() {
         return puntos;
@@ -36,12 +43,20 @@ public class Player {
         this.nombre = nombre;
     }
 
-    public Card[] getCards() {
+    public Card[] getMano() {
         return mano;
     }
 
-    public void setCards(Card[] cards) {
+    public void setMano(Card[] cards) {
         this.mano = cards;
+    }
+
+    public boolean isBlackJack() {
+        return blackJack;
+    }
+
+    public void setBlackJack(boolean blackJack) {
+        this.blackJack = blackJack;
     }
 
     public  int howManyCardsInDeck(){
@@ -59,7 +74,7 @@ public class Player {
     @Override
     public String toString() {
         return "Player{" +
-                "cards=" + Arrays.toString(cards) +
+                "cards=" + Arrays.toString(mano) +
                 ", puntos=" + puntos +
                 ", nombre='" + nombre + '\'' +
                 '}';

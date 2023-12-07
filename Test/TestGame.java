@@ -30,10 +30,13 @@ public class TestGame {
 
         //Con esta parte repartiríamos 2 cartas a cada jugador. A la IA y a los jugadores
 
-
-        mainDeck.dealCards(players);
         mainDeck.dealCards(players);
         System.out.println(Arrays.toString(players));
+
+        //Comprobamos si algún jugador tiene blackJack. Llamamos a la función de checkBlackJack para comprobarlo.
+        game.checkBlackJack(players);
+
+
 
 
 
