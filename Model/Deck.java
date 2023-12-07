@@ -19,7 +19,7 @@ public class Deck {
     /**
      * Esta función instancia un arreglo de cartas.
      * Recibe el arreglo de cartas y la instancia con cada uno de los palos de 1 a 13
-     * @return
+     *
      */
     public void createDeck(){
         String[] suits = {"Diamantes","Picas","Corazones","Trebol"};
@@ -55,23 +55,31 @@ public class Deck {
     }
 
     /**
+     *
      * Esta función se encarga de repartir cartas a las manos de cada usuario.
      * Hace uso de la función nullPosition para averiguar la primera posición nula del arreglo
-     * y poder devolv
-     * @param cards
+     * y poder asignar en dicha posición una carta, y de la función getCard para conseguir la posición
+     * donde haya una carta, es decir, que no sea nula.
+     *
+     * @param cards Recibe el arreglo al que le va asignar la carta
+     *
      */
     public void dealCards(Card[] cards ) {
         int cardsToDeal = 2;
         int index = 0;
+
         if(cards[0]!=null) {
-            index = nullPosition(cards);
+            index = firstNullPosition(cards);
             cardsToDeal=1;
         }
 
         for (int i = 1; i <= cardsToDeal; i++) {
-            int cardPosition = (int) (Math.random() * (51));
-            cards[index++] = getCard(cardPosition);
-            removeCard(cardPosition);
+            int position = searchCardPosition();
+
+            cards[index] = this.cards[position];
+            removeCard(position);
+            index++;
+
         }
 
     }
@@ -82,7 +90,7 @@ public class Deck {
      * @param cards el arreglo de cartas sobre el que se hace la comprobación
      * @return position, que es la posición del 1º elemento nulo del arreglo.
      */
-    public int nullPosition(Card[] cards){
+    public int firstNullPosition(Card[] cards){
         int position =0;
         for (int i =0 ; i< cards.length && position==0;i++) {
             if(cards[i]==null){
@@ -96,8 +104,20 @@ public class Deck {
     public void removeCard(int i){
         this.cards[i] = null;
     }
-    public Card getCard(int i){
-        return cards[i];
+
+    /**
+     * Esta función devuelve una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo
+     * @return Devuelve la posicion de la carta encontrada en la posición que le hemos dado.
+     */
+    public int searchCardPosition() {
+        int cardPosition;
+        Card cardToEvaluate;
+        do {
+            cardPosition = (int) (Math.random() * (52));
+            cardToEvaluate = cards[cardPosition];
+
+        } while (cardToEvaluate == null);
+        return cardPosition;
     }
 
     /**

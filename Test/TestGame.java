@@ -16,17 +16,39 @@ public class TestGame {
         Deck mainDeck = new Deck();
         mainDeck.createDeck();
 
-        //Con esta parte repartimos 2 cartas a cada jugador. A la IA y a los jugadores
-        Deck deckP1 = new Deck();
-        Deck deckIA = new Deck();
-        mainDeck.dealCards(deckP1.getCards());
-        mainDeck.dealCards(deckP1.getCards());
-        mainDeck.dealCards(deckP1.getCards());
-        mainDeck.dealCards(deckP1.getCards());
+        //Con esta parte repartiríamos 2 cartas a cada jugador. A la IA y a los jugadores
+        Player deckP1 = new Player();
+        Player deckIA = new Player();
+
+
+
+        for(int i =0;i<49;i++){
+
+            mainDeck.dealCards(deckP1.getCards());
+
+        }
         mainDeck.dealCards(deckP1.getCards());
 
-        System.out.println(deckP1);
-        System.out.println(deckP1.howManyCardsInDeck()); //6
+
+        System.out.println(mainDeck.howManyCardsInDeck());
+
+        System.out.println(mainDeck);
+
+
+
+        /**
+         * mainDeck.dealCards(deckP1.getCards());
+         *         mainDeck.dealCards(deckP1.getCards());
+         *         mainDeck.dealCards(deckP1.getCards());
+         *         mainDeck.dealCards(deckP1.getCards());
+         *         mainDeck.dealCards(deckP1.getCards());
+         *
+         *         System.out.println(deckP1);
+         *         System.out.println(deckP1.howManyCardsInDeck()); //6
+         *
+         *
+         */
+
 
         /*
 
