@@ -12,14 +12,33 @@ public class TestGame {
 
     public static void main(String[] args) {
 
-        Deck deck = new Deck();
+        //Aqui empieza. Creamos el mazo principal
+        Deck mainDeck = new Deck();
+        mainDeck.createDeck();
+
+        //Con esta parte repartimos 2 cartas a cada jugador. A la IA y a los jugadores
         Deck deckP1 = new Deck();
-        deck.createDeck();
-        deck.addCard(deckP1.getCards());
+        Deck deckIA = new Deck();
+        mainDeck.dealCards(deckP1.getCards());
+        mainDeck.dealCards(deckP1.getCards());
+        mainDeck.dealCards(deckP1.getCards());
+        mainDeck.dealCards(deckP1.getCards());
+        mainDeck.dealCards(deckP1.getCards());
+
         System.out.println(deckP1);
+        System.out.println(deckP1.howManyCardsInDeck()); //6
+
+        /*
+
+        System.out.println(deckIA);
         System.out.println(" ");
-        System.out.println(deck);
-        System.out.println(deck.howManyNulls());
+        System.out.println(mainDeck);
+        System.out.println(mainDeck.howManyNulls());
+
+
+         */
+
+
 
         /*
         Game game =new Game();

@@ -18,7 +18,7 @@ public class Deck {
 
     /**
      * Esta función instancia un arreglo de cartas.
-     * Recibe el arreglo de cartas y los instancia con cada uno de los palos de 1 a 13
+     * Recibe el arreglo de cartas y la instancia con cada uno de los palos de 1 a 13
      * @return
      */
     public void createDeck(){
@@ -46,7 +46,7 @@ public class Deck {
         for (int i = cards.length - 1; i > 0; i--) {
             int indiceAleatorio = rand.nextInt(i + 1);
 
-            // Intercambiar los elementos en las posiciones i e indiceAleatorio
+            // Intercambiar los elementos en las posiciones e indiceAleatorio
             Card temp = cards[i];
             cards[i] = cards[indiceAleatorio];
             cards[indiceAleatorio] = temp;
@@ -54,63 +54,80 @@ public class Deck {
         }
     }
 
-
-    public void addCard(Card[] cards) {
-        Card cardToBeAdded;
-
-        for (int i = 0; i <= 1; i++) {
-            int cardPosition = (int) (Math.random() * (52));
-
-            cardToBeAdded = this.cards[cardPosition];
-            this.cards[cardPosition] = null;
-            cards[i] = cardToBeAdded;
-
+    /**
+     * Esta función se encarga de repartir cartas a las manos de cada usuario.
+     * Hace uso de la función nullPosition para averiguar la primera posición nula del arreglo
+     * y poder devolv
+     * @param cards
+     */
+    public void dealCards(Card[] cards ) {
+        int cardsToDeal = 2;
+        int index = 0;
+        if(cards[0]!=null) {
+            index = nullPosition(cards);
+            cardsToDeal=1;
         }
 
+        for (int i = 1; i <= cardsToDeal; i++) {
+            int cardPosition = (int) (Math.random() * (51));
+            cards[index++] = getCard(cardPosition);
+            removeCard(cardPosition);
+        }
 
     }
-    public  void removeCard(){
 
-
+    /**
+     * Esta función me devuelve la posición del primer elemento nulo de un arreglo.
+     *
+     * @param cards el arreglo de cartas sobre el que se hace la comprobación
+     * @return position, que es la posición del 1º elemento nulo del arreglo.
+     */
+    public int nullPosition(Card[] cards){
+        int position =0;
+        for (int i =0 ; i< cards.length && position==0;i++) {
+            if(cards[i]==null){
+                position = i;
+            }
+        }
+        return position;
     }
-    public  void getCard(){
 
 
+    public void removeCard(int i){
+        this.cards[i] = null;
     }
+    public Card getCard(int i){
+        return cards[i];
+    }
+
     /**
      * Función que he hecho para comprobar la longitud de en un mazo.
      * No tiene ninguna utilidad más alla del testeo
      *
      */
-    public int deckSize(Card[] cards){
-
-
+    public int deckSize(){
         return cards.length;
     }
 
     /**
-     * Función que he hecho para comprobar que cuantas posiciones están vacías en un mazo.
+     * Función que he hecho para comprobar que cuantas cartas tiene un mazo
      * No tiene ninguna utilidad más alla del testeo
      *
      */
-    public  int howManyNulls(){
+    public  int howManyCardsInDeck(){
         int acu =0;
 
-        for (int i=0;i<cards.length; i++){
-            if(this.cards[i]==null){
+        for (int i=0; i<cards.length ; i++){
+            if(this.cards[i]!=null){
                 acu++;
 
             }
-
         }
-
         return acu;
     }
 
     @Override
     public String toString() {
-        return "Deck{" +
-                "cards=" + Arrays.toString(cards) +
-                '}';
+        return "Deck{" + "cards=" + Arrays.toString(cards) + '}';
     }
 }

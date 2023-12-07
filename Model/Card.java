@@ -9,7 +9,7 @@ public class Card {
 
 
     public Card(){
-        this(0,"");
+        this(0," ");
 
     }
 
