@@ -5,10 +5,20 @@ import java.util.Arrays;
 
 public class Player {
 
-    private Card[] cards = new Card[52];
-    private int puntos = 0;
-    private String nombre = " ";
+    private Card[] cards = new Card[20];
+    private int puntos;
+    private String nombre;
 
+
+    public Player(){
+        this( 0,"Name1");
+
+    }
+
+    public Player(int puntos, String nombre) {
+        this.puntos = puntos;
+        this.nombre = nombre;
+    }
 
     public int getPuntos() {
         return puntos;
@@ -50,6 +60,8 @@ public class Player {
     public String toString() {
         return "Player{" +
                 "cards=" + Arrays.toString(cards) +
+                ", puntos=" + puntos +
+                ", nombre='" + nombre + '\'' +
                 '}';
     }
 }

@@ -1,18 +1,45 @@
 package Test;
 
-import Model.Card;
+
 import Model.Deck;
 import Model.Player;
 import Model.Game;
 
-
+import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class TestGame {
 
     public static void main(String[] args) {
+        // Game loop
+        // Aqui empieza. Creamos el mazo principal
 
-        //Aqui empieza. Creamos el mazo principal
+        Game game = new Game();
+
+
+        Scanner teclado = new Scanner(System.in);
+        int numOfPlayers = teclado.nextInt();
+
+
+          Player[] players = game.addPlayer(numOfPlayers);
+        System.out.println(Arrays.toString(players));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Deck mainDeck = new Deck();
         mainDeck.createDeck();
 
@@ -22,17 +49,6 @@ public class TestGame {
 
 
 
-        for(int i =0;i<49;i++){
-
-            mainDeck.dealCards(deckP1.getCards());
-
-        }
-        mainDeck.dealCards(deckP1.getCards());
-
-
-        System.out.println(mainDeck.howManyCardsInDeck());
-
-        System.out.println(mainDeck);
 
 
 
@@ -77,6 +93,7 @@ public class TestGame {
 }
 
 /*
+
 int max puntos =0;
 
 for(jugador j:jugador){
@@ -88,4 +105,5 @@ for(jugador j:jugador){
 while(yo.calculapuntos()<maxpuntos){
     yo.pideCartas()
     }
+
  */
