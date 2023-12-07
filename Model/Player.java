@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 public class Player {
 
-    private Card[] cards = new Card[20];
+    private Card[] mano = new Card[20];
     private int puntos;
     private String nombre;
 
@@ -37,18 +37,18 @@ public class Player {
     }
 
     public Card[] getCards() {
-        return cards;
+        return mano;
     }
 
     public void setCards(Card[] cards) {
-        this.cards = cards;
+        this.mano = cards;
     }
 
     public  int howManyCardsInDeck(){
         int acu =0;
 
-        for (int i=0; i<cards.length ; i++){
-            if(this.cards[i]!=null){
+        for (int i=0; i<mano.length ; i++){
+            if(this.mano[i]!=null){
                 acu++;
 
             }

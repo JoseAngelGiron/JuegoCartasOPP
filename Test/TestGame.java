@@ -13,39 +13,31 @@ public class TestGame {
 
     public static void main(String[] args) {
         // Game loop
-        // Aqui empieza. Creamos el mazo principal
+        // Aquí empieza, pongo el nuevo juego
 
         Game game = new Game();
 
-
+        // Pido el número de jugadores y creo los jugadores. ESTA FUNCIÓN ESTA EN PRUEBA PIDE POR TECLADO SIN PRINT, OJO
         Scanner teclado = new Scanner(System.in);
         int numOfPlayers = teclado.nextInt();
 
+        Player[] players = game.addPlayer(numOfPlayers);
+        System.out.println(Arrays.toString(players));
 
-          Player[] players = game.addPlayer(numOfPlayers);
+        //Creo el nuevo mazo
+        Deck mainDeck = new Deck();
+        mainDeck.createDeck();
+
+        //Con esta parte repartiríamos 2 cartas a cada jugador. A la IA y a los jugadores
+
+
+        mainDeck.dealCards(players);
+        mainDeck.dealCards(players);
         System.out.println(Arrays.toString(players));
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-        Deck mainDeck = new Deck();
-        mainDeck.createDeck();
-
-        //Con esta parte repartiríamos 2 cartas a cada jugador. A la IA y a los jugadores
-        Player deckP1 = new Player();
-        Player deckIA = new Player();
 
 
 

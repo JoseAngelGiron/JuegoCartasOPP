@@ -14,6 +14,7 @@ public class Game {
 
 
 
+
         public void startGame(){
 
         }
@@ -36,9 +37,9 @@ public class Game {
          */
         public Player[] addPlayer ( int numberOfPlayers ){
                 String[] names = askNames(numberOfPlayers);
-                Player[] players = new Player[numberOfPlayers];
+                Player[] players = new Player[numberOfPlayers+1];
 
-                for (int i=0;i<numberOfPlayers;i++){
+                for (int i=0;i<players.length;i++){
                         players[i]  = new Player(0,names[i]);
                 }
 
@@ -53,9 +54,9 @@ public class Game {
         public String[] askNames (int numberOfPlayers){
                 Scanner teclado = new Scanner(System.in);
                 String name;
-                String[] names = new String[numberOfPlayers];
-
-                for (int i =0;i< names.length; i++) {
+                String[] names = new String[numberOfPlayers+1];
+                names[0] = "IA";
+                for (int i =1;i< names.length; i++) {
                         name = teclado.nextLine();
                         names[i] = name;
                 }

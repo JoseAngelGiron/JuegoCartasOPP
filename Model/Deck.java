@@ -63,27 +63,35 @@ public class Deck {
      * y poder asignar en dicha posición una carta, y de la función getCard para conseguir la posición
      * donde haya una carta, es decir, que no sea nula.
      *
-     * @param cards Recibe el arreglo al que le va asignar la carta
+     * @param player arreglo de jugadores
      *
      */
-    public void dealCards(Card[] cards ) {
+    public void dealCards(Player[] player ) {
         int cardsToDeal = 2;
-        int index = 0;
 
-        if(cards[0]!=null) {
-            index = firstNullPosition(cards);
-            cardsToDeal=1;
+
+
+        for (int i=0;i< player.length;i++) {
+            Card[] cardsToCheck =player[i].getCards();
+            int index = 0;
+
+            if (cardsToCheck[0]!= null) {
+                index = firstNullPosition(cardsToCheck);
+                cardsToDeal = 1;
+            }
+
+
+
+            for (int j = 1; j <= cardsToDeal; j++) {
+                int position = searchCardPosition();
+
+                cardsToCheck[index] = cards[position];
+                removeCard(position);
+                index++;
+
+            }
+            player[i].setCards(cardsToCheck);
         }
-
-        for (int i = 1; i <= cardsToDeal; i++) {
-            int position = searchCardPosition();
-
-            cards[index] = this.cards[position];
-            removeCard(position);
-            index++;
-
-        }
-
     }
 
     /**
@@ -104,11 +112,11 @@ public class Deck {
 
 
     public void removeCard(int i){
-        this.cards[i] = null;
+        cards[i] = null;
     }
 
     /**
-     * Esta función devuelve una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo
+     * Esta función devuelve la posición de una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo
      * @return Devuelve la posicion de la carta encontrada en la posición que le hemos dado.
      */
     public int searchCardPosition() {
