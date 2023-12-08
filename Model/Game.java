@@ -1,29 +1,41 @@
 package Model;
 
 
-import javax.naming.Name;
+
 import java.util.Scanner;
 
 public class Game {
 
 
+        private boolean isBlackJack;
 
 
+        public boolean isBlackJack() {
+                return isBlackJack;
+        }
 
+        public void setBlackJack(boolean blackJack) {
+                isBlackJack = blackJack;
+        }
 
         public void startGame(){
 
         }
-        public void playDealerTurn(){
+        public void playDealerTurn(Player players){
+
+
 
         }
+
+
+
 
         /**
          * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
          * de BlackJack cambia el atributo del jugador de blackJack a True
          * @param players Recibe un arreglo de jugadores, es decir, los jugadores que van a jugar el juego.
          */
-        public void checkBlackJack(Player[] players){
+        public void updateBlackJack(Player[] players){
                 int acu =0;
                 for(int i =0;i< players.length;i++) {
                         Card[] cards = players[i].getHand();
@@ -32,6 +44,7 @@ public class Game {
                                         acu += cards[j].getValue();
                                         if(acu==11){
                                                 players[i].setBlackJack(true);
+                                                setBlackJack(true);
                                         }
 
                                 }
@@ -40,9 +53,32 @@ public class Game {
 
         }
 
-        public void checkBust(Player[] player){
+        /**
+         * Comprueba si más de un jugador tiene blackjack.
+         * @param players recibe un arreglo con todos los jugadores
+         * @return amountOfBlacks, la cantidad de blackjacks que se han dado
+         */
+        private int checkBlackJack(Player[] players) {
+                int amountOfBlacks=0;
+                for (Player player:players) {
+                        if(player.isBlackJack()){
+                                amountOfBlacks+=1;
+                        }
+                }
+                return amountOfBlacks;
+        }
 
+        /**
+         * Comprueba si un jugador se ha pasado de 21 puntos, incluida la IA
+         * @param players Recibe el arreglo de jugadores.
+         */
+        public void checkBust(Player[] players){
+                for(Player player:players)
+                        player.setPlaying(player.getPoints()>21);
+                eliminatePlayer();
+        }
 
+        private void eliminatePlayer() {
         }
 
         /**
@@ -55,7 +91,7 @@ public class Game {
                 Player[] players = new Player[numberOfPlayers+1];
 
                 for (int i=0;i<players.length;i++){
-                        players[i]  = new Player(0,names[i], false);
+                        players[i]  = new Player(0,names[i], false, true);
                 }
 
                 return players;

@@ -27,21 +27,28 @@ public class TestGame {
 
         //Creo el nuevo mazo
         Deck mainDeck = new Deck();
+
         mainDeck.createDeck(); // SE AUTOBARAJA
+        System.out.println(mainDeck);
         //MENSAJE DE BIENVENIDA WELCOME TO BLACKJACK
 
         //Con esta parte repartiríamos 2 cartas a cada jugador.
         //A continuación, se calculan los puntos
 
-        mainDeck.dealCards(players);
+        mainDeck.dealInitialCards(players);
+        System.out.println(Arrays.toString(players));
         game.calculatePoints(players);
 
 
         //Muestro las cartas de cada jugador y de la IA.
         game.showHands(players);
+        //game.checkBust();
 
-        //Comprobamos si algún jugador tiene blackJack. Llamamos a la función de checkBlackJack para comprobarlo.
-        game.checkBlackJack(players);
+        //Comprobamos si algún jugador tiene blackJack. Llamamos a la función de updateBlackJack para comprobarlo.
+        game.updateBlackJack(players);
+
+        //Repartimos cartas a los jugadores que lo pidan
+
 
 
 

@@ -58,40 +58,22 @@ public class Deck {
 
     /**
      *
-     * Esta función se encarga de repartir cartas a las manos de cada usuario.
-     * Hace uso de la función nullPosition para averiguar la primera posición nula del arreglo
-     * y poder asignar en dicha posición una carta, y de la función getCard para conseguir la posición
-     * donde haya una carta, es decir, que no sea nula.
+     * Esta función se encarga de repartir las 2 primeras cartas a cada jugador.
      *
-     * @param player arreglo de jugadores
+     *
+     * @param players recibe el arreglo de jugadores
      *
      */
-    public void dealCards(Player[] player ) {
-        int cardsToDeal = 2;
+    public void dealInitialCards(Player[] players ) {
+            for (Player player:players) {
+                Card[] card = player.getHand();
+                for(int i=0;i<=1;i++){
+                    Card cardToPass = searchCard();
+                    card[i] = cardToPass;
 
-
-
-        for (int i=0;i< player.length;i++) {
-            Card[] cardsToCheck =player[i].getHand();
-            int index = 0;
-
-            if (cardsToCheck[0]!= null) {
-                index = firstNullPosition(cardsToCheck);
-                cardsToDeal = 1;
+                }
+                player.setHand(card);
             }
-
-
-
-            for (int j = 1; j <= cardsToDeal; j++) {
-                int position = searchCardPosition();
-
-                cardsToCheck[index] = cards[position];
-                removeCard(position);
-                index++;
-
-            }
-            player[i].setHand(cardsToCheck);
-        }
     }
 
     /**
@@ -119,15 +101,15 @@ public class Deck {
      * Esta función devuelve la posición de una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo
      * @return Devuelve la posicion de la carta encontrada en la posición que le hemos dado.
      */
-    public int searchCardPosition() {
+    public Card searchCard() {
         int cardPosition;
-        Card cardToEvaluate;
+        Card cardToReturn;
         do {
             cardPosition = (int) (Math.random() * (52));
-            cardToEvaluate = cards[cardPosition];
+            cardToReturn = cards[cardPosition];
 
-        } while (cardToEvaluate == null);
-        return cardPosition;
+        } while (cardToReturn == null);
+        return cardToReturn;
     }
 
     /**

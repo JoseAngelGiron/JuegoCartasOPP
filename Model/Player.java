@@ -10,22 +10,30 @@ public class Player {
     private String name;
 
     private boolean blackJack;
+    private boolean isPlaying;
 
 
     public Player(){
-        this( 0,"Name", false);
+        this( 0,"Name", false, true);
 
     }
 
 
-    public Player(int points, String name, boolean blackJack) {
+    public Player(int points, String name, boolean blackJack,  boolean isPlaying) {
         this.points = points;
         this.name = name;
         this.blackJack = blackJack;
+        this.isPlaying = isPlaying;
 
     }
 
+    public boolean isPlaying() {
+        return isPlaying;
+    }
 
+    public void setPlaying(boolean playing) {
+        isPlaying = playing;
+    }
 
     public int getPoints() {
         return points;
