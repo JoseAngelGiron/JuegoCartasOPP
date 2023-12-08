@@ -72,7 +72,7 @@ public class Deck {
 
 
         for (int i=0;i< player.length;i++) {
-            Card[] cardsToCheck =player[i].getMano();
+            Card[] cardsToCheck =player[i].getHand();
             int index = 0;
 
             if (cardsToCheck[0]!= null) {
@@ -90,7 +90,7 @@ public class Deck {
                 index++;
 
             }
-            player[i].setMano(cardsToCheck);
+            player[i].setHand(cardsToCheck);
         }
     }
 

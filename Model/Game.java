@@ -26,7 +26,7 @@ public class Game {
         public void checkBlackJack(Player[] players){
                 int acu =0;
                 for(int i =0;i< players.length;i++) {
-                        Card[] cards = players[i].getMano();
+                        Card[] cards = players[i].getHand();
                         for (int j=0;j<cards.length && cards[j] !=null;j++) {
                                 if (cards[j] != null) {
                                         acu += cards[j].getValue();
@@ -67,6 +67,7 @@ public class Game {
          * @return devuelve un arreglo de Strings con los jugadores
          */
         public String[] askNames (int numberOfPlayers){
+
                 Scanner teclado = new Scanner(System.in);
                 String name;
                 String[] names = new String[numberOfPlayers+1];
@@ -80,10 +81,34 @@ public class Game {
                 return names;
         }
 
-        public void calculatePoints(){
+        public void showHands(Player[] players){
+                for (Player player:players){
+
+                        System.out.println(player.getName());
+                        System.out.println("Puntos: " + player.getPoints()+"\n");
+                        Card[] mano = player.getHand();
+                        for (int j=0;j< mano.length && mano[j]!=null ;j++){
+                                System.out.println(mano[j]);
+                        }
+                        System.out.println();
+                }
 
 
         }
+
+        public void calculatePoints(Player[] players){
+                for (Player player : players) {
+                    Card[] mano = player.getHand();
+                    int puntos = 0;
+                    for (int j = 0; j < mano.length && mano[j] != null; j++) {
+                        puntos += mano[j].getValue();
+                    }
+                    player.setPoints(puntos);
+                }
+
+
+        }
+
 
 
 }

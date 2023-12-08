@@ -5,9 +5,9 @@ import java.util.Arrays;
 
 public class Player {
 
-    private Card[] mano = new Card[20];
-    private int puntos;
-    private String nombre;
+    private Card[] hand = new Card[20];
+    private int points;
+    private String name;
 
     private boolean blackJack;
 
@@ -18,37 +18,37 @@ public class Player {
     }
 
 
-    public Player(int puntos, String nombre, boolean blackJack) {
-        this.puntos = puntos;
-        this.nombre = nombre;
+    public Player(int points, String name, boolean blackJack) {
+        this.points = points;
+        this.name = name;
         this.blackJack = blackJack;
 
     }
 
 
 
-    public int getPuntos() {
-        return puntos;
+    public int getPoints() {
+        return points;
     }
 
-    public void setPuntos(int puntos) {
-        this.puntos = puntos;
+    public void setPoints(int points) {
+        this.points = points;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Card[] getMano() {
-        return mano;
+    public Card[] getHand() {
+        return hand;
     }
 
-    public void setMano(Card[] cards) {
-        this.mano = cards;
+    public void setHand(Card[] hand) {
+        this.hand = hand;
     }
 
     public boolean isBlackJack() {
@@ -62,8 +62,8 @@ public class Player {
     public  int howManyCardsInDeck(){
         int acu =0;
 
-        for (int i=0; i<mano.length ; i++){
-            if(this.mano[i]!=null){
+        for (int i=0; i<hand.length ; i++){
+            if(this.hand[i]!=null){
                 acu++;
 
             }
@@ -71,12 +71,10 @@ public class Player {
         return acu;
     }
 
+
     @Override
     public String toString() {
-        return "Player{" +
-                "cards=" + Arrays.toString(mano) +
-                ", puntos=" + puntos +
-                ", nombre='" + nombre + '\'' +
-                '}';
+        return "Player" + name + ", points=" + points + Arrays.toString(hand);
+
     }
 }
