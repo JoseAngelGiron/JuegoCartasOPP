@@ -9,20 +9,9 @@ import java.util.Scanner;
                 //Atributos
                 private Player[] players;
 
-                private Deck deck;
+                Deck deck;
 
                 private boolean isBlackJack;
-
-                //Constructores
-                public Game(){
-                        this(null,  new Deck(), false);
-                }
-                public Game(Player[] players, Deck deck, boolean isBlackJack ){
-                        this.players = players;
-                        this.deck = deck;
-                        this.isBlackJack = isBlackJack;
-                }
-
 
                 // Getter and Setters
                 public Player[] getPlayers() {
@@ -51,22 +40,14 @@ import java.util.Scanner;
                                 '}';
                 }
 
-                //Funciones
                 /**
                  * Esta función se encarga de iniciar el juego.
                  * Recibe funciones XXXX
                  */
                 public void startGame(){
 
+
                 }
-
-
-
-
-
-
-
-
                 public void playDealerTurn(Player players){
 
 
