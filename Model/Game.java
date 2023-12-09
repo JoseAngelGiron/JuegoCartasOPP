@@ -5,19 +5,30 @@ package Model;
 import java.util.Arrays;
 import java.util.Scanner;
 
-        public class Game {
-                //Atributos
-                private Player[] players;
+public class Game {
+        //Atributos
+        private Player[] players;
 
-                Deck deck;
+        private Deck deck;
 
-                private boolean isBlackJack;
+        private boolean isBlackJack;
 
-                // Getter and Setters
+        // Constructores
+                public Game(){
+                        this(null, new Deck(),false);
+
+                }
+
+                public Game(Player[] players, Deck deck, boolean isBlackJack){
+                        this.players = players;
+                        this.deck = deck;
+                        this.isBlackJack = isBlackJack;
+                }
+
+        // Getter and Setters
                 public Player[] getPlayers() {
                         return players;
                 }
-
                 public void setPlayers(Player[] players) {
                         this.players = players;
                 }
