@@ -8,4 +8,14 @@ public class Menu {
                 System.out.print("Selecciona una opción: ");
                 return IO.readInt("Elija una opción");
         }
+
+        public static int selectNPlayers(){
+
+                return IO.readInt2("Inserte un número de jugadores, mínimo 1 y máximo 4", 1,4);
+        }
+
+        public static String[] selectNamePlayers(int numberOfPlayers){
+
+                return IO.readString2("Inserte el nombre de los jugadores ", numberOfPlayers);
+        }
 }

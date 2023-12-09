@@ -27,6 +27,7 @@ public class MainController {
         switch (option) {
             case 1:
                 game = new Game();
+                //
                 game.startGame();
                 break;
             case 2:
