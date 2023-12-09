@@ -2,6 +2,7 @@ package Model;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Deck {
 
@@ -59,6 +60,7 @@ public class Deck {
     /**
      *
      * Esta función se encarga de repartir las 2 primeras cartas a cada jugador.
+     * Elimina las cartas del mazo que va pasando con la función de remove card
      *
      *
      * @param players recibe el arreglo de jugadores
@@ -68,12 +70,31 @@ public class Deck {
             for (Player player:players) {
                 Card[] card = player.getHand();
                 for(int i=0;i<=1;i++){
-                    Card cardToPass = searchCard();
+                    Card cardToPass = cards[searchCardPosition()];
+                    removeCard(searchCardPosition());
                     card[i] = cardToPass;
 
                 }
                 player.setHand(card);
             }
+    }
+
+    /**
+     * Esta función recibe un jugador y da una carta al jugador que se le pasa.
+     * Hace uso de la función nullPosition para averiguar la primera posición que apunta a nulo en la mano del jugador
+     * Hace uso de la función removeCard para eliminar la carta del mazo cuando se la damos al jugador.
+     * @param player recibe un jugador de jugadores
+     */
+    public void dealACard(Player player){
+
+            int nullPosition = firstNullPosition(player.getHand()); //Busca la primera posición nula en la mano del jugador
+            int cardPosition =  searchCardPosition();// Busca la posición de una carta aleatoria en el mazo
+            Card cardToDeal = cards[cardPosition]; // Cogemos la carta del mazo que vamos a asignar
+            player.getHand()[nullPosition] = cardToDeal; // Asigna dicha carta a la mano del jugador en la primera posición vacía que tiene
+            cards[cardPosition] = null;// Eliminamos la carta del mazo
+
+
+
     }
 
     /**
@@ -98,18 +119,19 @@ public class Deck {
     }
 
     /**
-     * Esta función devuelve la posición de una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo
+     * Esta función devuelve una carta, la primera que encuentra, seleccionada aleatoriamente entre todas las del mazo.
+     * Si la posición de la carta seleccionada es nula (o sea, no hay nada), selecciona otra posición y por tanto, otra carta.
      * @return Devuelve la posicion de la carta encontrada en la posición que le hemos dado.
      */
-    public Card searchCard() {
+    public int searchCardPosition() {
         int cardPosition;
-        Card cardToReturn;
+        Card cardToEvaluate;
         do {
-            cardPosition = (int) (Math.random() * (52));
-            cardToReturn = cards[cardPosition];
+            cardPosition = (int) (Math.random() * (52)); // devuelve la posición de la carta
+            cardToEvaluate = cards[cardPosition]; // si esto es null, repite la operación
 
-        } while (cardToReturn == null);
-        return cardToReturn;
+        } while (cardToEvaluate == null);
+        return cardPosition;
     }
 
     /**
