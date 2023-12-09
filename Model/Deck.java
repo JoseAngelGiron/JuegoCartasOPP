@@ -23,6 +23,7 @@ public class Deck {
         return cards;
     }
 
+
     public void setCards(Card[] cards) {
         this.cards = cards;
     }
