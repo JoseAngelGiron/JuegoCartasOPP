@@ -17,6 +17,7 @@ public class TestGame {
 
         Game game = new Game();
 
+
         // Pido el número de jugadores y creo los jugadores. ESTA FUNCIÓN ESTA EN PRUEBA PIDE POR TECLADO SIN PRINT, OJO
         //PASAR A LA VISTA.
         Scanner teclado = new Scanner(System.in);

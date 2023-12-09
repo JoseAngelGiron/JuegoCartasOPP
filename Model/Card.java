@@ -3,11 +3,12 @@ package Model;
 import java.util.Objects;
 
 public class Card {
+    //Atributos
     private int value;
     private String suit;
 
 
-
+    // Constructores
     public Card(){
         this(0," ");
 
@@ -20,20 +21,22 @@ public class Card {
     }
 
     @Override
+    public String toString() {
+        //Usar un ciclo for para imprimir una carta con el valor en las esquinas
+        return "Card{" +
+                "value=" + value +
+                ", suit='" + suit + '\'' +
+                '}';
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Card card = (Card) o;
         return value == card.value && Objects.equals(suit, card.suit);
     }
-
-    public static Card addCard(int value, String suit){
-
-        Card card =new Card(value,suit);
-
-        return card;
-    }
-
+    // Getter and Setters
     public String getSuit() {
         return suit;
     }
@@ -50,12 +53,15 @@ public class Card {
         this.value = value;
     }
 
-    @Override
-    public String toString() {
-        //Usar un ciclo for para imprimir una carta con el valor en las esquinas
-        return "Card{" +
-                "value=" + value +
-                ", suit='" + suit + '\'' +
-                '}';
+    // Funciones
+    public static Card addCard(int value, String suit){
+
+        Card card =new Card(value,suit);
+
+        return card;
     }
+
+
+
+
 }
