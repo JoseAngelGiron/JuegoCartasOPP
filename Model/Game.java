@@ -33,6 +33,14 @@ public class Game {
                         this.players = players;
                 }
 
+                public Deck getDeck() {
+                return deck;
+                }
+
+                public void setDeck(Deck deck) {
+                this.deck = deck;
+                }
+
                 public boolean isBlackJack() {
                         return isBlackJack;
                 }
@@ -40,6 +48,8 @@ public class Game {
                 public void setBlackJack(boolean blackJack) {
                         isBlackJack = blackJack;
                 }
+
+
 
 
                 @Override
@@ -56,6 +66,7 @@ public class Game {
                  * Recibe funciones XXXX
                  */
                 public void startGame(){
+
 
 
                 }

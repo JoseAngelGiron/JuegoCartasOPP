@@ -27,16 +27,15 @@ public class TestGame {
         System.out.println(Arrays.toString(players));
 
         //Creo el nuevo mazo
-        Deck mainDeck = new Deck();
+        game.getDeck().createDeck();
 
-        mainDeck.createDeck(); // SE AUTOBARAJA
-        System.out.println(mainDeck);
+
         //MENSAJE DE BIENVENIDA WELCOME TO BLACKJACK
 
         //Con esta parte repartiríamos 2 cartas a cada jugador.
         //A continuación, se calculan los puntos
 
-        mainDeck.dealInitialCards(players);
+        game.getDeck().dealInitialCards(players);
         System.out.println(Arrays.toString(players));
         game.calculatePoints(players);
 
