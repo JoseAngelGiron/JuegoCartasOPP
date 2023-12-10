@@ -24,8 +24,9 @@ public class Menu {
                 System.out.println("1. Pasar");
                 System.out.println("2. Plantarse");
                 System.out.println("3. Ver tu mano");
-                System.out.println("4. Ver la mano de un jugador");
+                System.out.println("4. Ver el estado de la partida");
                 System.out.println("5. Pedir otra carta");
                 return IO.readInt2("Seleccione que quiere hacer a continuación: ", 1, 5);
         }
+
 }

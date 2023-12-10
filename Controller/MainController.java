@@ -38,8 +38,9 @@ public class MainController {
                 System.out.println(Arrays.toString(game.getPlayers()));
                 stateOfPlay(game);
 
-                step2(game);
-                 //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
+                step2Players(game);
+                //step3IA(game);
+
                 //game.playDealerTurn();
 
 
@@ -76,22 +77,43 @@ public class MainController {
 
     public static void stateOfPlay(Game game){
         game.calculatePoints();
+        game.checkBust();
         System.out.println(game.stateOfGame());
 
     }
 
-    public static void step2(Game game){
+    public static void step2Players(Game game){
         int count = 0;
 
         do {
-
-
+            System.out.println("Jugador "+ game.getPlayers()[count+1].getName() + ": ");
             int option = Menu.selectOption();
-            game.playPlayerTurn(option, game, count+1);
-            if(option==1 || option==2 ){
-                count++;
+            game.playPlayerTurn(option, game, count+1); //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
+
+            switch (option){
+                case 1:
+                    System.out.println("Has pasado turno");
+                    count++;
+                    break;
+                case 2:
+                    System.out.println("Te has plantado. Se calcularan tus puntos y se te mostrara el resultado.");
+                    System.out.println(game.getPlayers()[count+1].getPoints());
+                    count++;
+                    break;
+                case 3: // ver tu mano
+                    System.out.println(Arrays.toString(game.getPlayers()[count + 1].getHand()));
+                    System.out.println(game.getPlayers()[count+1].getPoints());
+                    break;
+                case 4: // ver el estado de la partida
+                    stateOfPlay(game);
+                    break;
+                case 5:// Pedir otra carta (aquí le muestro su mano y sus puntos actuales)
+                    System.out.println(Arrays.toString(game.getPlayers()[count + 1].getHand()));
+                    System.out.println(game.getPlayers()[count+1].getPoints());
+                    break;
+
             }
-            if(option==3)
+
 
 
 

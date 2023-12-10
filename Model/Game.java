@@ -116,15 +116,17 @@ public class Game {
 
                 /**
                  * Comprueba si un jugador se ha pasado de 21 puntos, incluida la IA
-                 * @param players Recibe el arreglo de jugadores.
+                 *
                  */
-                public void checkBust(Player[] players){
+                public void checkBust(){
                         for(Player player:players)
                                 player.setPlaying(player.getPoints()>21);
-                        eliminatePlayer();
+                                eliminatePlayer();
                 }
 
                 private void eliminatePlayer() {
+
+
                 }
 
                 /**
@@ -224,34 +226,23 @@ public class Game {
 
         public int playPlayerTurn(int option, Game game, int player) {
 
-                switch (option){
-                        //Pasar
-                        case 1:
-
-                         break;
-                        //Plantarse
-                        case 2:
-                                break;
-                        //Ver tu mano
-                        case 3:
-                                break;
-                        //Ver la mano de un jugador
-                        case 4:
-                                break;
+                if (option == 2) {//Pasar   //Plantarse
+                        players[player].setPlaying(false);
+                        calculatePoints();
+                } else if (option == 5) {
                         //Pedir otra carta
-                        case 5:
-                                game.deck.dealACard(players[player]);
-                                break;
-
-
+                        game.deck.dealACard(players[player]);
+                        calculatePoints();
                 }
 
-                return 0;
 
-        }
-        public void playDealerTurn(Player players){
+                return option;
 
 
 
         }
+        //public void playDealerTurn(Player players){
+
+
+        //}
 }
