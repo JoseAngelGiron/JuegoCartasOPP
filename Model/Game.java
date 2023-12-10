@@ -78,9 +78,9 @@ public class Game {
                 /**
                  * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
                  * de BlackJack cambia el atributo del jugador de blackJack a True
-                 * @param players Recibe un arreglo de jugadores, es decir, los jugadores que van a jugar el juego.
+                 *
                  */
-                public void updateBlackJack(Player[] players){
+                public void updateBlackJack(){
                         int acu =0;
                         for(int i =0;i< players.length;i++) {
                                 Card[] cards = players[i].getHand();
@@ -95,7 +95,7 @@ public class Game {
 
                                         }
                                 }
-                        }
+                }
 
 
 
@@ -120,14 +120,11 @@ public class Game {
                  */
                 public void checkBust(){
                         for(Player player:players)
-                                player.setPlaying(player.getPoints()>21);
-                                eliminatePlayer();
-                }
-
-                private void eliminatePlayer() {
-
+                                player.setPlaying(player.getPoints()<21);
 
                 }
+
+
 
                 /**
                  * Esta función se encarga de establecer los jugadores. Instancia la cantidad de jugadores
@@ -187,7 +184,25 @@ public class Game {
                         }
                         return state;
 
+        }
+
+        /**
+         * Esta función devuelve los datos de la mano actual de un jugador
+         * @param player recibe el jugador sobre el que se va a recopilar la información
+         * @return hand, es decir, la información de los puntos y las cartas de la mano.
+         */
+        public String returnHand(Player player){
+                String hand ="";
+
+                hand+= "Puntos: " + player.getPoints()+"\n";
+                Card[] mano = player.getHand();
+                for (int j=0;j< mano.length && mano[j]!=null ;j++){
+                        hand += mano[j]+"\n";
                 }
+
+                return hand;
+        }
+
 
         /**
          * Calcula los puntos de cada una de las manos del jugador y se los asigna.
@@ -234,11 +249,7 @@ public class Game {
                         game.deck.dealACard(players[player]);
                         calculatePoints();
                 }
-
-
                 return option;
-
-
 
         }
         //public void playDealerTurn(Player players){

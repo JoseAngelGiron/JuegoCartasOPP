@@ -56,7 +56,7 @@ public class Deck {
             }
 
         }
-        //shuffle();
+        shuffle();
     }
     }
 

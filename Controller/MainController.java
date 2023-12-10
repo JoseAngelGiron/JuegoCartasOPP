@@ -35,11 +35,10 @@ public class MainController {
                 step1(game);
 
                 game.startGame();
-                System.out.println(Arrays.toString(game.getPlayers()));
                 stateOfPlay(game);
 
                 step2Players(game);
-                //step3IA(game);
+                step3IA(game);
 
                 //game.playDealerTurn();
 
@@ -53,6 +52,7 @@ public class MainController {
 
 
     }
+
 
     public static void step1(Game game){
 
@@ -77,39 +77,51 @@ public class MainController {
 
     public static void stateOfPlay(Game game){
         game.calculatePoints();
+        game.updateBlackJack();
         game.checkBust();
         System.out.println(game.stateOfGame());
 
     }
 
     public static void step2Players(Game game){
-        int count = 0;
-
+        int playerTurn = 1;
+        boolean validTurn = true;
         do {
-            System.out.println("Jugador "+ game.getPlayers()[count+1].getName() + ": ");
+            do {
+                if (!game.getPlayers()[playerTurn].isPlaying()) {
+                    validTurn = false;
+                    playerTurn++;
+                }
+            }while (!validTurn);
+            System.out.println("Jugador "+ game.getPlayers()[playerTurn].getName() + ": ");
             int option = Menu.selectOption();
-            game.playPlayerTurn(option, game, count+1); //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
+            game.playPlayerTurn(option, game, playerTurn); //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
 
             switch (option){
                 case 1:
                     System.out.println("Has pasado turno");
-                    count++;
+                    playerTurn++;
                     break;
                 case 2:
                     System.out.println("Te has plantado. Se calcularan tus puntos y se te mostrara el resultado.");
-                    System.out.println(game.getPlayers()[count+1].getPoints());
-                    count++;
+                    System.out.println(game.getPlayers()[playerTurn++].getPoints());
+                    //System.out.println(game.checkBust());
                     break;
                 case 3: // ver tu mano
-                    System.out.println(Arrays.toString(game.getPlayers()[count + 1].getHand()));
-                    System.out.println(game.getPlayers()[count+1].getPoints());
+                    System.out.println("Este es el estado actual de tu mano:");
+                    System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
                     break;
                 case 4: // ver el estado de la partida
                     stateOfPlay(game);
                     break;
                 case 5:// Pedir otra carta (aquí le muestro su mano y sus puntos actuales)
-                    System.out.println(Arrays.toString(game.getPlayers()[count + 1].getHand()));
-                    System.out.println(game.getPlayers()[count+1].getPoints());
+                    System.out.println("Aqui tienes !! tus cartas actualmente son:");
+                    System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                    game.checkBust();
+                    if(!game.getPlayers()[playerTurn].isPlaying()) {
+                        System.out.println("Te has pasado de 21, y has sido eliminado");
+                        playerTurn++;
+                    }
                     break;
 
             }
@@ -117,10 +129,15 @@ public class MainController {
 
 
 
-        }while (count <game.getPlayers().length-1);
+        }while (playerTurn <game.getPlayers().length);
         //game.playDealerTurn();
 
     }
+
+    private static void step3IA(Game game) {
+
+    }
+
 
 
 }
