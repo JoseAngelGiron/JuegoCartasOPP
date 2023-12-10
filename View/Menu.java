@@ -14,8 +14,8 @@ public class Menu {
                 return IO.readInt2("Inserte un número de jugadores, mínimo 1 y máximo 4", 1,4);
         }
 
-        public static String[] selectNamePlayers(int numberOfPlayers){
+        public static String selectNamePlayer(){
 
-                return IO.readString2("Inserte el nombre de los jugadores ", numberOfPlayers);
+                return IO.readString("Inserte el nombre del siguiente jugador ");
         }
 }

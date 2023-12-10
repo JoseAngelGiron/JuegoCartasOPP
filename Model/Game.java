@@ -19,14 +19,17 @@ public class Game {
 
                 }
 
+
+
                 public Game(Player[] players, Deck deck, boolean isBlackJack){
                         this.players = players;
                         this.deck = deck;
                         this.isBlackJack = isBlackJack;
                 }
-                //Constructor creado específicamente para la función addPlayer
-                public Game(int numberOfPlayers) {
-                        this.players = new Player[numberOfPlayers];
+                public Game (Player[] players){
+                        for (Player player: players) {
+                                player.setName("Default");
+                        }
                 }
 
 
@@ -151,24 +154,23 @@ public class Game {
                 }
 
                 /**
-                 * Esta función se encarga de pedir nombres, y devolver un arreglo con todos los nombres.
-                 * @param numberOfPlayers Recibe la cantidad de jugadores
+                 * Esta función se encarga de comprobar nombres
+                 *
                  * @return devuelve un arreglo de Strings con los jugadores
                  */
-                public String[] askNames (int numberOfPlayers){
-
-                        Scanner teclado = new Scanner(System.in);
-                        String name;
-                        String[] names = new String[numberOfPlayers+1];
-                        names[0] = "IA";
-                        for (int i =1;i< names.length; i++) {
-                                name = teclado.nextLine();
-                                names[i] = name;
+                public boolean checkNames (String name){
+                        boolean validName = true;
+                        for (int i = 0; i < players.length && players[i].getName() != null; i++) {
+                                if (!((players[i].getName()).equalsIgnoreCase(name)) && !name.trim().isEmpty()) {
+                                        validName = false;
+                                }
                         }
+                        return validName;
 
-
-                        return names;
                 }
+
+
+
 
                 public void showHands(Player[] players){
                         for (Player player:players){
@@ -199,5 +201,16 @@ public class Game {
                 }
 
 
+                public void addNamePlayer(String name) {
+                        boolean noAsigned = true;
+                        for (int i=0;i<players.length && noAsigned;i++) {
+                                if(players[i].getName() == null){
+                                        players[i].setName(name);
+                                        noAsigned =false;
+                                }
 
-        }
+
+                        }
+
+                }
+}
