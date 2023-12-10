@@ -20,22 +20,23 @@ public class TestGame {
         System.out.println(name.trim());
         // Pido el número de jugadores y creo los jugadores. ESTA FUNCIÓN ESTA EN PRUEBA PIDE POR TECLADO SIN PRINT, OJO
         //PASAR A LA VISTA.
-        Scanner teclado = new Scanner(System.in);
-        int numOfPlayers = teclado.nextInt();
+        //Scanner teclado = new Scanner(System.in);
+        //int numOfPlayers = teclado.nextInt();
 
         //Player[] players = game.addPlayer(numOfPlayers);
         //System.out.println(Arrays.toString(players));
 
         //Creo el nuevo mazo
         game.getDeck().createDeck();
+        System.out.println(game.getDeck());
 
 
         //MENSAJE DE BIENVENIDA WELCOME TO BLACKJACK
 
         //Con esta parte repartiríamos 2 cartas a cada jugador.
         //A continuación, se calculan los puntos
-
         //game.getDeck().dealInitialCards(players);
+
         //System.out.println(Arrays.toString(players));
         //game.calculatePoints(players);
 

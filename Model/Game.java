@@ -4,7 +4,7 @@ package Model;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.Scanner;
+
 
 public class Game {
         //Atributos
@@ -171,9 +171,11 @@ public class Game {
                 }
 
 
-
-
-                public String stateOfGame(){
+        /**
+         * Esta función recopila el estado de la partida en general y devuelve los datos.
+         * @return una cadena de texto, con los datos de todos los jugadores.
+         */
+        public String stateOfGame(){
                         String state="";
                         for (Player player:players){
 
@@ -189,7 +191,11 @@ public class Game {
 
                 }
 
-                public void calculatePoints(){
+        /**
+         * Calcula los puntos de cada una de las manos del jugador y se los asigna.
+         * Es una función diseñada para ir recalculando a lo largo de la partida los puntos de cada jugador.
+         */
+        public void calculatePoints(){
                         for (Player player : players) {
                             Card[] mano = player.getHand();
                             int puntos = 0;
@@ -202,8 +208,11 @@ public class Game {
 
                 }
 
-
-                public void addNamePlayer(String name) {
+        /**
+         * Asigna los nombres a los jugadores
+         * @param name recibe una cadena de texto, en este caso un nombre para dar al jugador
+         */
+        public void addNamePlayer(String name) {
                         boolean noAsigned = true;
                         for (int i=0;i<players.length && noAsigned;i++) {
                                 if(Objects.equals(players[i].getName(), "")){

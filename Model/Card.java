@@ -7,10 +7,12 @@ public class Card {
     private int value;
     private String suit;
 
+    private String figure;
+
 
     // Constructores
     public Card(){
-        this(0," ");
+        this(0," ", "");
 
     }
 
@@ -20,13 +22,21 @@ public class Card {
 
     }
 
+    public Card(int value, String suit, String figure ){
+        this.value = value;
+        this.suit = suit;
+        this.figure = figure;
+    }
+
+
     @Override
     public String toString() {
-        //Usar un ciclo for para imprimir una carta con el valor en las esquinas
-        return "Card{" +
-                "value=" + value +
-                ", suit='" + suit + '\'' +
-                '}';
+        return "\n___________ \n" +
+                "|"+figure+"         |\n" +
+                "|   "+suit+"     |\n" +
+                "|   "+value+"    |\n" +
+                "|        "+figure+" |\n" +
+                " ‾‾‾‾‾‾‾‾‾‾  ";
     }
 
     @Override
@@ -54,12 +64,7 @@ public class Card {
     }
 
     // Funciones
-    public static Card addCard(int value, String suit){
 
-        Card card =new Card(value,suit);
-
-        return card;
-    }
 
 
 

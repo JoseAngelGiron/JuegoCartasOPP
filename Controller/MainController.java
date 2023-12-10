@@ -35,6 +35,8 @@ public class MainController {
                 game.startGame();
                 System.out.println(Arrays.toString(game.getPlayers()));
                 stateOfPlay(game);
+                game.playPlayerTurn();
+                game.playDealerTurn();
 
 
             case 2:
@@ -71,6 +73,11 @@ public class MainController {
     public static void stateOfPlay(Game game){
         game.calculatePoints();
         System.out.println(game.stateOfGame());
+
+    }
+
+    public static void step2(Game game){
+
 
     }
 }

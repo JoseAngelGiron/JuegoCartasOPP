@@ -41,17 +41,23 @@ public class Deck {
      *
      */
     public void createDeck(){
-        String[] suits = {"Diamantes","Picas","Corazones","Trebol"};
+        String[] suits = {"♦","♠","♥","♣"};
+        String[] figures ={"J","Q","K"};
         int index=0;
         for (String suit: suits) {
 
-            for(int i =1;i<=13;i++){
-                cards[index++] = new Card(i,suit);
+            for(int i =1;i<=10;i++){
+                cards[index++] = new Card(i,suit, "");
+                if(i==10){
+                for (int j=0;j<3;j++){
+                    cards[index++] = new Card(i,suit,figures[j]);
+                }
 
             }
 
         }
-        shuffle();
+        //shuffle();
+    }
     }
 
     /**
