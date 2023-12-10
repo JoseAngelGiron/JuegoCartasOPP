@@ -55,22 +55,20 @@ public class Game {
                 }
 
 
-
-
                 @Override
                 public String toString() {
                         return "Game{" +
-                                "players=" + Arrays.toString(players) +
-                                ", deck=" + deck +
-                                ", isBlackJack=" + isBlackJack +
-                                '}';
+                        "players=" + Arrays.toString(players) +
+                        '}';
                 }
 
-                /**
+        /**
                  * Esta función se encarga de iniciar el juego.
                  * Recibe funciones XXXX
                  */
                 public void startGame(){
+                        deck.createDeck();
+                        deck.dealInitialCards(players);
 
 
 
@@ -170,22 +168,23 @@ public class Game {
 
 
 
-                public void showHands(Player[] players){
+                public String stateOfGame(){
+                        String state="";
                         for (Player player:players){
 
-                                System.out.println(player.getName());
-                                System.out.println("Puntos: " + player.getPoints()+"\n");
+                                state += player.getName()+"\n";
+                                state += "Puntos: " + player.getPoints()+"\n";
                                 Card[] mano = player.getHand();
                                 for (int j=0;j< mano.length && mano[j]!=null ;j++){
-                                        System.out.println(mano[j]);
+                                        state += mano[j]+"\n";
                                 }
-                                System.out.println();
+                                state+="\n";
                         }
-
+                        return state;
 
                 }
 
-                public void calculatePoints(Player[] players){
+                public void calculatePoints(){
                         for (Player player : players) {
                             Card[] mano = player.getHand();
                             int puntos = 0;

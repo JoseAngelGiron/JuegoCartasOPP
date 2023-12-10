@@ -31,30 +31,10 @@ public class MainController {
             case 1:
                 //Instanciamos el nuevo juego
                 game = new Game();
-                //Pedimos la cantidad de jugadores y se la damos a game
-                int numberOfPlayers = Menu.selectNPlayers();
-                game.addPlayers(numberOfPlayers);
-
+                step1(game);
+                game.startGame();
                 System.out.println(Arrays.toString(game.getPlayers()));
-                //Pedimos nombres y los validamos, si son válidos, los añadimos, si no, volvemos a pedir dicho nombre
-                int count=0;
-                do{
-
-                    String name =Menu.selectNamePlayer();
-                    boolean validName =game.checkNames(name);
-                    if(validName){
-                        game.addNamePlayer(name);
-                        count++;
-                    }else{
-                        System.out.println("El nombre del jugador no puede contener espacios en blanco ni tampoco ser el de otro jugador");
-                    }
-                }while (count<numberOfPlayers);
-                System.out.println(Arrays.toString(game.getPlayers()));
-
-
-
-                //game.startGame();
-                break;
+                stateOfPlay(game);
             case 2:
 
                 break;
@@ -62,6 +42,33 @@ public class MainController {
 
         }
 
+
+    }
+
+    public static void step1(Game game){
+
+        //Pedimos la cantidad de jugadores y se la damos a game
+        int numberOfPlayers = Menu.selectNPlayers();
+        game.addPlayers(numberOfPlayers);
+        //Pedimos nombres y los validamos, si son válidos, los añadimos, si no, volvemos a pedir dicho nombre
+        int count=0;
+        do{
+
+            String name =Menu.selectNamePlayer();
+            boolean validName =game.checkNames(name);
+            if(validName){
+                game.addNamePlayer(name);
+                count++;
+            }else{
+                System.out.println("El nombre del jugador no puede contener espacios en blanco ni tampoco ser el de otro jugador");
+            }
+        }while (count<numberOfPlayers);
+
+    }
+
+    public static void stateOfPlay(Game game){
+        game.calculatePoints();
+        System.out.println(game.stateOfGame());
 
     }
 }
