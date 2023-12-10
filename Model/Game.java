@@ -3,6 +3,7 @@ package Model;
 
 
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Game {
@@ -26,11 +27,7 @@ public class Game {
                         this.deck = deck;
                         this.isBlackJack = isBlackJack;
                 }
-                public Game (Player[] players){
-                        for (Player player: players) {
-                                player.setName("Default");
-                        }
-                }
+
 
 
         // Getter and Setters
@@ -147,7 +144,7 @@ public class Game {
                         Player[] players = new Player[numberOfPlayers];
                         setPlayers(players);
                         for (int i=0;i<players.length;i++){
-                                players[i]  = new Player(0, false, true);
+                                players[i]  = new Player(0,"", false, true);
                         }
 
 
@@ -160,8 +157,9 @@ public class Game {
                  */
                 public boolean checkNames (String name){
                         boolean validName = true;
-                        for (int i = 0; i < players.length && players[i].getName() != null; i++) {
-                                if (!((players[i].getName()).equalsIgnoreCase(name)) && !name.trim().isEmpty()) {
+
+                        for (int i = 0; i < players.length && validName; i++) {
+                                if (((players[i].getName()).equalsIgnoreCase(name)) || name.trim().isEmpty()) {
                                         validName = false;
                                 }
                         }
@@ -204,9 +202,10 @@ public class Game {
                 public void addNamePlayer(String name) {
                         boolean noAsigned = true;
                         for (int i=0;i<players.length && noAsigned;i++) {
-                                if(players[i].getName() == null){
+                                if(Objects.equals(players[i].getName(), "")){
                                         players[i].setName(name);
                                         noAsigned =false;
+
                                 }
 
 

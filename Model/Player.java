@@ -14,7 +14,7 @@ public class Player {
 
 
     public Player(){
-        this( 0,"Default", false, true);
+        this( 0,"", false, true);
 
     }
 
@@ -27,12 +27,7 @@ public class Player {
 
     }
 
-    public Player(int points, boolean blackJack,  boolean isPlaying) {
-        this.points = points;
-        this.blackJack = blackJack;
-        this.isPlaying = isPlaying;
 
-    }
 
     public boolean isPlaying() {
         return isPlaying;

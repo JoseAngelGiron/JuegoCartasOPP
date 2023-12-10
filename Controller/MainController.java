@@ -34,6 +34,7 @@ public class MainController {
                 //Pedimos la cantidad de jugadores y se la damos a game
                 int numberOfPlayers = Menu.selectNPlayers();
                 game.addPlayers(numberOfPlayers);
+
                 System.out.println(Arrays.toString(game.getPlayers()));
                 //Pedimos nombres y los validamos, si son válidos, los añadimos, si no, volvemos a pedir dicho nombre
                 int count=0;
