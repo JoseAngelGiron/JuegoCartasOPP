@@ -132,17 +132,22 @@ public class Game {
                 }
 
                 /**
-                 * Esta función se encarga de establecer los jugadores. Hace uso de la función askNames. Tanto esta función como askNames están sujetas a cambios
-                 * @param numberOfPlayers recibe el número de jugadores
-                 * @return devuelve un arreglo de jugadores, con la cantidad de jugadores que le hemos pasado.
+                 * Esta función se encarga de establecer los jugadores. Instancia la cantidad de jugadores
+                 * @param numberOfPlayers recibe el número de jugadores.
+                 *
                  */
                 public void addPlayers ( int numberOfPlayers ){
 
 
-                        Player[] players = new Player[numberOfPlayers];
+                        Player[] players = new Player[numberOfPlayers+1];
                         setPlayers(players);
                         for (int i=0;i<players.length;i++){
-                                players[i]  = new Player(0,"", false, true);
+                                if(i==0) {
+                                    players[i] = new Player(0, "IA", false, true);
+                                } else  {
+                                    players[i] = new Player(0, "", false, true);
+                                }
+
                         }
 
 

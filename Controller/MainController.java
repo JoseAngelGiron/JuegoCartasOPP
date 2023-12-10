@@ -35,6 +35,8 @@ public class MainController {
                 game.startGame();
                 System.out.println(Arrays.toString(game.getPlayers()));
                 stateOfPlay(game);
+
+
             case 2:
 
                 break;
