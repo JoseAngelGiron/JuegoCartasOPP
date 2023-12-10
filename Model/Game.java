@@ -15,7 +15,7 @@ public class Game {
 
         // Constructores
                 public Game(){
-                        this(null, new Deck(),false);
+                        this(new Player[1], new Deck(),false);
 
                 }
 
@@ -24,6 +24,11 @@ public class Game {
                         this.deck = deck;
                         this.isBlackJack = isBlackJack;
                 }
+                //Constructor creado específicamente para la función addPlayer
+                public Game(int numberOfPlayers) {
+                        this.players = new Player[numberOfPlayers];
+                }
+
 
         // Getter and Setters
                 public Player[] getPlayers() {
@@ -86,18 +91,19 @@ public class Game {
                         for(int i =0;i< players.length;i++) {
                                 Card[] cards = players[i].getHand();
                                 for (int j=0;j<cards.length && cards[j] !=null;j++) {
-                                        if (cards[j] != null) {
-                                                acu += cards[j].getValue();
-                                                if(acu==11){
-                                                        players[i].setBlackJack(true);
-                                                        setBlackJack(true);
+
+                                        acu += cards[j].getValue();
+                                        if(acu==11){
+                                                players[i].setBlackJack(true);
+                                                setBlackJack(true);
+
                                                 }
 
                                         }
                                 }
                         }
 
-                }
+
 
                 /**
                  * Comprueba si más de un jugador tiene blackjack.
@@ -132,15 +138,16 @@ public class Game {
                  * @param numberOfPlayers recibe el número de jugadores
                  * @return devuelve un arreglo de jugadores, con la cantidad de jugadores que le hemos pasado.
                  */
-                public Player[] addPlayer ( int numberOfPlayers ){
-                        String[] names = askNames(numberOfPlayers);
-                        Player[] players = new Player[numberOfPlayers+1];
+                public void addPlayers ( int numberOfPlayers ){
 
+
+                        Player[] players = new Player[numberOfPlayers];
+                        setPlayers(players);
                         for (int i=0;i<players.length;i++){
-                                players[i]  = new Player(0,names[i], false, true);
+                                players[i]  = new Player(0, false, true);
                         }
 
-                        return players;
+
                 }
 
                 /**

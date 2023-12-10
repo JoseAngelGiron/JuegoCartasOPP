@@ -30,7 +30,7 @@ public class IO {
                     System.out.println("El valor introducido no es un número, pruebe de nuevo");
 
                 }
-            } while (numberToReturn >= nMin && numberToReturn <= nMax);
+            } while (numberToReturn < nMin || numberToReturn > nMax);
 
             return numberToReturn;
 
@@ -54,11 +54,11 @@ public class IO {
         public static String[] readString2(String msg, int nPlayers){
                 Scanner teclado = new Scanner(System.in);
                 String[] names = new String[nPlayers];
-                int nPlayer =0;
+
                 System.out.println(msg);
-                 for(String name: names) {
-                     System.out.println("Introduzca el nombre del jugador "+ nPlayer++);
-                     name = teclado.nextLine();
+                 for(int i =0;i<nPlayers;i++) {
+                     System.out.println("Introduzca el nombre del jugador: "+ i+1);
+                     names[i] = teclado.nextLine();
                  }
 
 

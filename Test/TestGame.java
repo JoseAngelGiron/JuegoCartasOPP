@@ -23,8 +23,8 @@ public class TestGame {
         Scanner teclado = new Scanner(System.in);
         int numOfPlayers = teclado.nextInt();
 
-        Player[] players = game.addPlayer(numOfPlayers);
-        System.out.println(Arrays.toString(players));
+        //Player[] players = game.addPlayer(numOfPlayers);
+        //System.out.println(Arrays.toString(players));
 
         //Creo el nuevo mazo
         game.getDeck().createDeck();
@@ -35,17 +35,17 @@ public class TestGame {
         //Con esta parte repartiríamos 2 cartas a cada jugador.
         //A continuación, se calculan los puntos
 
-        game.getDeck().dealInitialCards(players);
-        System.out.println(Arrays.toString(players));
-        game.calculatePoints(players);
+        //game.getDeck().dealInitialCards(players);
+        //System.out.println(Arrays.toString(players));
+        //game.calculatePoints(players);
 
 
         //Muestro las cartas de cada jugador y de la IA.
-        game.showHands(players);
+        //game.showHands(players);
         //game.checkBust();
 
         //Comprobamos si algún jugador tiene blackJack. Llamamos a la función de updateBlackJack para comprobarlo.
-        game.updateBlackJack(players);
+        //game.updateBlackJack(players);
 
         //Repartimos cartas a los jugadores que lo pidan
 
