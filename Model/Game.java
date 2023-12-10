@@ -73,11 +73,7 @@ public class Game {
 
 
                 }
-                public void playDealerTurn(Player players){
 
-
-
-                }
 
                 /**
                  * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
@@ -225,4 +221,37 @@ public class Game {
                         }
 
                 }
+
+        public int playPlayerTurn(int option, Game game, int player) {
+
+                switch (option){
+                        //Pasar
+                        case 1:
+
+                         break;
+                        //Plantarse
+                        case 2:
+                                break;
+                        //Ver tu mano
+                        case 3:
+                                break;
+                        //Ver la mano de un jugador
+                        case 4:
+                                break;
+                        //Pedir otra carta
+                        case 5:
+                                game.deck.dealACard(players[player]);
+                                break;
+
+
+                }
+
+                return 0;
+
+        }
+        public void playDealerTurn(Player players){
+
+
+
+        }
 }

@@ -31,12 +31,16 @@ public class MainController {
             case 1:
                 //Instanciamos el nuevo juego
                 game = new Game();
+
                 step1(game);
+
                 game.startGame();
                 System.out.println(Arrays.toString(game.getPlayers()));
                 stateOfPlay(game);
-                game.playPlayerTurn();
-                game.playDealerTurn();
+
+                step2(game);
+                 //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
+                //game.playDealerTurn();
 
 
             case 2:
@@ -77,7 +81,24 @@ public class MainController {
     }
 
     public static void step2(Game game){
+        int count = 0;
 
+        do {
+
+
+            int option = Menu.selectOption();
+            game.playPlayerTurn(option, game, count+1);
+            if(option==1 || option==2 ){
+                count++;
+            }
+            if(option==3)
+
+
+
+        }while (count <game.getPlayers().length-1);
+        //game.playDealerTurn();
 
     }
+
+
 }
