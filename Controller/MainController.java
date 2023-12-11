@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Game;
+import Model.Player;
 import View.Menu;
 
 import java.util.Arrays;
@@ -38,19 +39,32 @@ public class MainController {
                 stateOfPlay(game);
 
                 step2Players(game);
-                step3IA(game);
+                int score = step3IA(game);
+                showWinner(game, score);
 
                 //game.playDealerTurn();
 
 
             case 2:
-
+                System.out.println("Ha elegido salir del casino. ¡Que pase buen día!");
                 break;
 
 
         }
 
 
+    }
+
+
+
+    public static void showWinner(Game game, int maxScore) {
+        Player[] players = game.getPlayers();
+        for (Player player:players) {
+            if(player.isPlaying() && player.getPoints() == maxScore)
+                System.out.println("El ganador es: "+player.getName()+ "!!");
+
+
+        }
     }
 
 
@@ -130,12 +144,29 @@ public class MainController {
 
 
         }while (playerTurn <game.getPlayers().length);
-        //game.playDealerTurn();
+
 
     }
 
-    private static void step3IA(Game game) {
+    public static int step3IA(Game game) {
 
+        int maxScore =0;
+
+        for (Player player:game.getPlayers()) {
+            if(player.getPoints()>maxScore)
+                maxScore=player.getPoints();
+        }
+        System.out.println("La IA va a pedir cartas.....");
+        while (game.getPlayers()[0].getPoints()<maxScore){
+            game.playDealerTurn(game);
+
+        }
+        System.out.println("La mano de la IA es: ");
+        System.out.println(game.returnHand(game.getPlayers()[0]));
+
+
+
+        return maxScore;
     }
 
 

@@ -101,10 +101,10 @@ public class Game {
 
                 /**
                  * Comprueba si más de un jugador tiene blackjack.
-                 * @param players recibe un arreglo con todos los jugadores
+                 *
                  * @return amountOfBlacks, la cantidad de blackjacks que se han dado
                  */
-                private int checkBlackJack(Player[] players) {
+                private int checkBlackJack() {
                         int amountOfBlacks=0;
                         for (Player player:players) {
                                 if(player.isBlackJack()){
@@ -127,7 +127,7 @@ public class Game {
 
 
                 /**
-                 * Esta función se encarga de establecer los jugadores. Instancia la cantidad de jugadores
+                 * Esta función se encarga de establecer los jugadores. Instancia la cantidad de jugadores que se le pasa
                  * @param numberOfPlayers recibe el número de jugadores.
                  *
                  */
@@ -252,8 +252,8 @@ public class Game {
                 return option;
 
         }
-        //public void playDealerTurn(Player players){
+        public void playDealerTurn(Game game){
+                game.deck.dealACard(players[0]);
 
-
-        //}
+        }
 }
