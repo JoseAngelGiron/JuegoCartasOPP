@@ -12,18 +12,21 @@ public class Player {
     private boolean blackJack;
     private boolean isPlaying;
 
+    private int winner;
+
 
     public Player(){
-        this( 0,"", false, true);
+        this( 0,"", false, true, 0);
 
     }
 
 
-    public Player(int points, String name, boolean blackJack,  boolean isPlaying) {
+    public Player(int points, String name, boolean blackJack,  boolean isPlaying, int winner) {
         this.points = points;
         this.name = name;
         this.blackJack = blackJack;
         this.isPlaying = isPlaying;
+        this.winner = winner;
 
     }
 
@@ -67,6 +70,14 @@ public class Player {
 
     public void setBlackJack(boolean blackJack) {
         this.blackJack = blackJack;
+    }
+
+    public int getWinner() {
+        return winner;
+    }
+
+    public void setWinner(int winner) {
+        this.winner += winner;
     }
 
     public  int howManyCardsInDeck(){

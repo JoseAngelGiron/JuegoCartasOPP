@@ -138,9 +138,9 @@ public class Game {
                         setPlayers(players);
                         for (int i=0;i<players.length;i++){
                                 if(i==0) {
-                                    players[i] = new Player(0, "IA", false, true);
+                                    players[i] = new Player(0, "IA", false, true, 0);
                                 } else  {
-                                    players[i] = new Player(0, "", false, true);
+                                    players[i] = new Player(0, "", false, true, 0);
                                 }
 
                         }
@@ -194,11 +194,11 @@ public class Game {
         public String returnHand(Player player){
                 String hand ="";
 
-                hand+= "Puntos: " + player.getPoints()+"\n";
-                Card[] mano = player.getHand();
-                for (int j=0;j< mano.length && mano[j]!=null ;j++){
-                        hand += mano[j]+"\n";
+
+                for (int j=0;j< player.getHand().length && player.getHand()[j]!=null ;j++){
+                        hand += player.getHand()[j]+"\n";
                 }
+                hand+= "Puntos: " + player.getPoints()+"\n";
 
                 return hand;
         }
@@ -237,9 +237,9 @@ public class Game {
 
                         }
 
-                }
+        }
 
-        public int playPlayerTurn(int option, Game game, int player) {
+        public void playPlayerTurn(int option, Game game, int player) {
 
                 if (option == 2) {//Pasar   //Plantarse
                         players[player].setPlaying(false);
@@ -249,11 +249,22 @@ public class Game {
                         game.deck.dealACard(players[player]);
                         calculatePoints();
                 }
-                return option;
 
         }
         public void playDealerTurn(Game game){
                 game.deck.dealACard(players[0]);
+                game.calculatePoints();
 
+        }
+
+        public int calculateWinner(int maxScore){
+                int howManyWinners=0;
+
+                for (Player player:players) {
+                        if(player.getPoints()==maxScore)
+                                howManyWinners++;
+                }
+
+                return howManyWinners;
         }
 }

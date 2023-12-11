@@ -1,6 +1,7 @@
 package Model;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -41,22 +42,26 @@ public class Deck {
      *
      */
     public void createDeck(){
-        String[] suits = {"♦","♠","♥","♣"};
-        String[] figures ={"J","Q","K"};
+        String[] suits = {"💎","♠️","♥️","♣"};
+        String[] figures ={"AS","J","Q","K"};
         int index=0;
         for (String suit: suits) {
 
             for(int i =1;i<=10;i++){
-                cards[index++] = new Card(i,suit, "");
+                    if(i==1) {
+                        cards[index++] = new Card(i, suit, figures[0]);
+                    }else{
+                        cards[index++] = new Card(i, suit, " ");
+                    }
                 if(i==10){
-                for (int j=0;j<3;j++){
+                    for (int j=1;j<=3;j++){
                     cards[index++] = new Card(i,suit,figures[j]);
-                }
+                    }
 
             }
 
         }
-        shuffle();
+
     }
     }
 

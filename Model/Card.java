@@ -12,7 +12,7 @@ public class Card {
 
     // Constructores
     public Card(){
-        this(0," ", "");
+        this(0," ", " ");
 
     }
 

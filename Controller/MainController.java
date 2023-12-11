@@ -31,22 +31,19 @@ public class MainController {
         switch (option) {
             case 1:
                 //Instanciamos el nuevo juego
-                game = new Game();
+                    game = new Game();
 
-                step1(game);
+                    step1(game);
+                    game.startGame();
+                    stateOfPlay(game);
 
-                game.startGame();
-                stateOfPlay(game);
+                    step2PlayersTurn(game);
+                    int maxScore = step3IAsTurn(game);
+                    showEndOfGame(game, maxScore);
 
-                step2Players(game);
-                int score = step3IA(game);
-                showWinner(game, score);
-
-                //game.playDealerTurn();
-
-
+                break;
             case 2:
-                System.out.println("Ha elegido salir del casino. ¡Que pase buen día!");
+                System.out.println("Ha elegido salir del casino. ¡Que pase buen día!  ");
                 break;
 
 
@@ -57,16 +54,40 @@ public class MainController {
 
 
 
-    public static void showWinner(Game game, int maxScore) {
-        Player[] players = game.getPlayers();
-        for (Player player:players) {
-            if(player.isPlaying() && player.getPoints() == maxScore)
-                System.out.println("El ganador es: "+player.getName()+ "!!");
+    public static void showEndOfGame(Game game, int maxScore) {
+        int howManyWinners = game.calculateWinner(maxScore);
 
+        if(howManyWinners==0){
+            System.out.println("No ha habido ganadores, todos los jugadores se pasaron de 21.");
+        } else if (howManyWinners==1) {
+            for (Player player: game.getPlayers()) {
+                if(player.getPoints()==maxScore) {
+                    System.out.println("El ganador es: " + player.getName() + "!!");
+                    player.setWinner(1);
+                }
+            }
+
+        }else{
+                System.out.println("Ha habido un empate entre los jugadores: ");
+                for (Player player: game.getPlayers()) {
+                    if (player.getPoints()==maxScore)
+                        System.out.println(player.getName());
+                }
 
         }
-    }
 
+
+
+
+
+
+    }
+    public static void stateOfPlay(Game game){
+        game.calculatePoints();
+        game.updateBlackJack();
+        System.out.println(game.stateOfGame());
+
+    }
 
     public static void step1(Game game){
 
@@ -89,15 +110,7 @@ public class MainController {
 
     }
 
-    public static void stateOfPlay(Game game){
-        game.calculatePoints();
-        game.updateBlackJack();
-        game.checkBust();
-        System.out.println(game.stateOfGame());
-
-    }
-
-    public static void step2Players(Game game){
+    public static void step2PlayersTurn(Game game){
         int playerTurn = 1;
         boolean validTurn = true;
         do {
@@ -109,7 +122,7 @@ public class MainController {
             }while (!validTurn);
             System.out.println("Jugador "+ game.getPlayers()[playerTurn].getName() + ": ");
             int option = Menu.selectOption();
-            game.playPlayerTurn(option, game, playerTurn); //¿HACER ESTO ES UNA BUENA PRÁCTICA O LA HE CAGADO MUCHO?
+            game.playPlayerTurn(option, game, playerTurn);
 
             switch (option){
                 case 1:
@@ -131,6 +144,7 @@ public class MainController {
                 case 5:// Pedir otra carta (aquí le muestro su mano y sus puntos actuales)
                     System.out.println("Aqui tienes !! tus cartas actualmente son:");
                     System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                    game.updateBlackJack();
                     game.checkBust();
                     if(!game.getPlayers()[playerTurn].isPlaying()) {
                         System.out.println("Te has pasado de 21, y has sido eliminado");
@@ -148,21 +162,28 @@ public class MainController {
 
     }
 
-    public static int step3IA(Game game) {
+    public static int step3IAsTurn(Game game) {
 
         int maxScore =0;
 
         for (Player player:game.getPlayers()) {
-            if(player.getPoints()>maxScore)
+            if(player.getPoints() <=21  && player.getPoints()>maxScore)
                 maxScore=player.getPoints();
         }
-        System.out.println("La IA va a pedir cartas.....");
+        System.out.println("La IA va a pedir cartas..... o no...");
+
         while (game.getPlayers()[0].getPoints()<maxScore){
             game.playDealerTurn(game);
+
 
         }
         System.out.println("La mano de la IA es: ");
         System.out.println(game.returnHand(game.getPlayers()[0]));
+        game.checkBust();
+        if(!game.getPlayers()[0].isPlaying()) {
+            System.out.println("La IA se ha pasado de 21, y ha sido eliminada");
+
+        }
 
 
 

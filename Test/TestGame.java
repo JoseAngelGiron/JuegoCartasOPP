@@ -16,8 +16,8 @@ public class TestGame {
         // Aquí empieza, pongo el nuevo juego
 
         Game game = new Game();
-        String name = "            peepe        ";
-        System.out.println(name.trim());
+        //String name = "            peepe        ";
+        //System.out.println(name.trim());
         // Pido el número de jugadores y creo los jugadores. ESTA FUNCIÓN ESTA EN PRUEBA PIDE POR TECLADO SIN PRINT, OJO
         //PASAR A LA VISTA.
         //Scanner teclado = new Scanner(System.in);
