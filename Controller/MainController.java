@@ -4,7 +4,11 @@ import Model.Game;
 import Model.Player;
 import View.Menu;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Arrays;
+import java.util.Objects;
 
 
 public class MainController {
@@ -17,6 +21,7 @@ public class MainController {
 
                 option = Menu.mainMenu();
                 mainController(option);
+
                 if(option>2 || option<1)
                     System.out.println("La opción seleccionada no esta contemplada, pruebe de nuevo por favor");
 
@@ -31,15 +36,24 @@ public class MainController {
         switch (option) {
             case 1:
                 //Instanciamos el nuevo juego
-                    game = new Game();
+                game = new Game();
+                step1(game);
 
-                    step1(game);
-                    game.startGame();
+                String repetir;
+                do {
+
+                    game.startGame(game);
                     stateOfPlay(game);
 
                     step2PlayersTurn(game);
+                    for (Player player: game.getPlayers()) {
+                        System.out.println(player.getWinner());
+                    }
                     int maxScore = step3IAsTurn(game);
                     showEndOfGame(game, maxScore);
+                    repetir = Menu.selectAnotherRound();
+
+                } while (!Objects.equals(repetir, "n"));
 
                 break;
             case 2:
@@ -54,34 +68,7 @@ public class MainController {
 
 
 
-    public static void showEndOfGame(Game game, int maxScore) {
-        int howManyWinners = game.calculateWinner(maxScore);
 
-        if(howManyWinners==0){
-            System.out.println("No ha habido ganadores, todos los jugadores se pasaron de 21.");
-        } else if (howManyWinners==1) {
-            for (Player player: game.getPlayers()) {
-                if(player.getPoints()==maxScore) {
-                    System.out.println("El ganador es: " + player.getName() + "!!");
-                    player.setWinner(1);
-                }
-            }
-
-        }else{
-                System.out.println("Ha habido un empate entre los jugadores: ");
-                for (Player player: game.getPlayers()) {
-                    if (player.getPoints()==maxScore)
-                        System.out.println(player.getName());
-                }
-
-        }
-
-
-
-
-
-
-    }
     public static void stateOfPlay(Game game){
         game.calculatePoints();
         game.updateBlackJack();
@@ -145,8 +132,8 @@ public class MainController {
                     System.out.println("Aqui tienes !! tus cartas actualmente son:");
                     System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
                     game.updateBlackJack();
-                    game.checkBust();
-                    if(!game.getPlayers()[playerTurn].isPlaying()) {
+
+                    if(game.getPlayers()[playerTurn].getPoints()>21) {
                         System.out.println("Te has pasado de 21, y has sido eliminado");
                         playerTurn++;
                     }
@@ -165,6 +152,7 @@ public class MainController {
     public static int step3IAsTurn(Game game) {
 
         int maxScore =0;
+        game.reCalculatePointsIfBlackjack();
 
         for (Player player:game.getPlayers()) {
             if(player.getPoints() <=21  && player.getPoints()>maxScore)
@@ -172,24 +160,72 @@ public class MainController {
         }
         System.out.println("La IA va a pedir cartas..... o no...");
 
-        while (game.getPlayers()[0].getPoints()<maxScore){
+        /* Con esta instrucción valoro si la IA ya tiene un blackjack o si ya hay un blackjack por parte de alguno de los jugadores,
+            en cuyo caso, no pide cartas, bien porque ya ha ganado o ya ha perdido, respectivamente.
+         */
+        //
+        if(!game.isBlackJack())
+            while ( game.getPlayers()[0].getPoints()<maxScore){
             game.playDealerTurn(game);
 
-
-        }
+            }
         System.out.println("La mano de la IA es: ");
         System.out.println(game.returnHand(game.getPlayers()[0]));
-        game.checkBust();
-        if(!game.getPlayers()[0].isPlaying()) {
+
+        if(game.getPlayers()[0].getPoints()>21) {
             System.out.println("La IA se ha pasado de 21, y ha sido eliminada");
 
         }
-
-
-
         return maxScore;
     }
 
+    public static void showEndOfGame(Game game, int maxScore) {
+        int howManyWinners = game.calculateWinner(maxScore);
+        int amountOfBlackjacks = game.howManyBlackjacks();
+
+        if(amountOfBlackjacks==1){
+            for (Player player: game.getPlayers()) {
+                if(player.isBlackJack())
+                    System.out.println("El ganador, que ademas tiene blackjack, es : "+ player.getName() +" !!");
+                player.setWinner(1);
+            }
+        } else if (amountOfBlackjacks>=2) {
+            System.out.println("Hay mas de un jugador con un blackjack, y por tanto hay un empate entre:");
+            for (Player player: game.getPlayers()) {
+                System.out.println(player.getName());
+            }
+        }else if(howManyWinners==0){
+            System.out.println("No ha habido ganadores, todos los jugadores se pasaron de 21.");
+        }else if (howManyWinners==1) {
+            for (Player player: game.getPlayers()) {
+                if(player.getPoints()==maxScore ) {
+                    System.out.println("El ganador es: " + player.getName() + "!!");
+                    player.setWinner(1);
+                }
+            }
+        }else{
+            System.out.println("Ha habido un empate entre los jugadores: ");
+            for (Player player: game.getPlayers()) {
+                if (player.getPoints()==maxScore)
+                    System.out.println(player.getName());
+            }
+
+        }
+    }
+
+    public static <IOException> void printResults(Game game){
+
+        // Especifica la ruta del archivo en el que deseas escribir
+        String rutaArchivo = "C://Users.txt";
+
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
+
+            bw.write("Hola, esto es una línea escrita en Java.");
 
 
+            System.out.println("Se ha escrito en el archivo correctamente.");
+        }catch (java.io.IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

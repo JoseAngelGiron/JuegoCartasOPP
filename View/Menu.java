@@ -28,5 +28,11 @@ public class Menu {
                 System.out.println("5. Pedir otra carta");
                 return IO.readInt2("Seleccione que quiere hacer a continuación: ", 1, 5);
         }
+        public static String selectAnotherRound(){
+                return IO.readOption("¿Desea jugar otra ronda?");
+
+
+
+        }
 
 }

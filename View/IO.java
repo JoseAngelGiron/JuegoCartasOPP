@@ -1,5 +1,6 @@
 package View;
 
+import java.util.Objects;
 import java.util.Scanner;
 
 public class IO {
@@ -41,16 +42,11 @@ public class IO {
             System.out.print(msg + ": ");
             Scanner teclado = new Scanner(System.in);
             String mensaje = " ";
-            try {
-                mensaje = teclado.nextLine();
+            mensaje = teclado.nextLine();
 
-            }catch(Exception e ){
-                teclado.nextLine();
-                System.out.println("No ha introducido un mensaje valido, pruebe de nuevo por favor.");
-
-            }
             return mensaje;
         }
+
         public static String[] readString2(String msg, int nPlayers){
                 Scanner teclado = new Scanner(System.in);
                 String[] names = new String[nPlayers];
@@ -65,6 +61,25 @@ public class IO {
                 return names;
             }
 
+        public static String readOption(String msg){
 
+            Scanner teclado = new Scanner(System.in);
+            String option = "";
+
+            do {
+                System.out.println(msg + ": ");
+                option = teclado.nextLine();
+
+                if (!Objects.equals(option, "s") && !Objects.equals(option, "n"))
+                    System.out.println("La opción introducida no se contempla, pruebe de nuevo.");
+
+
+
+
+
+            }while(!Objects.equals(option, "s") && !Objects.equals(option, "n"));
+
+            return option;
+        }
 
 }

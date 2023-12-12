@@ -64,9 +64,10 @@ public class Game {
 
         /**
                  * Esta función se encarga de iniciar el juego.
-                 * Recibe funciones XXXX
+                 * Hace uso de las funciones crear el mazo y repartir cartas.
                  */
-                public void startGame(){
+                public void startGame(Game game){
+                        resetValues();
                         deck.createDeck();
                         deck.dealInitialCards(players);
 
@@ -78,33 +79,40 @@ public class Game {
                 /**
                  * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
                  * de BlackJack cambia el atributo del jugador de blackJack a True
-                 *
+                 * A partir de cuando el jugador tiene más de 2 cartas, siempre acabaría poniendo el blackjack a true
                  */
                 public void updateBlackJack(){
-                        int acu =0;
-                        for(int i =0;i< players.length;i++) {
-                                Card[] cards = players[i].getHand();
-                                for (int j=0;j<cards.length && cards[j] !=null;j++) {
 
-                                        acu += cards[j].getValue();
-                                        if(acu==11){
-                                                players[i].setBlackJack(true);
-                                                setBlackJack(true);
+                    for (Player player : players) {
+                        int acu = 0;
+                        boolean as= false;
+                        Card[] cards = player.getHand();
+                        for (int j = 0; j < cards.length && cards[j] != null; j++) {
 
-                                                }
+                            if(cards[j].getValue()==1)
+                                    as = true;
 
-                                        }
-                                }
+                            acu += cards[j].getValue();
+                            if (acu == 11 && j == 1 && as) {
+                                player.setBlackJack(true);
+                                setBlackJack(true);
+
+                            } else {
+                                player.setBlackJack(false);
+                                setBlackJack(false);
+                            }
+                        }
+                    }
                 }
 
 
 
                 /**
-                 * Comprueba si más de un jugador tiene blackjack.
+                 * Comprueba si más de un jugador tiene blackjack. Su utilidad reside en poder valorar empates entre distintos jugadores que tengan un blackjack
                  *
                  * @return amountOfBlacks, la cantidad de blackjacks que se han dado
                  */
-                private int checkBlackJack() {
+                public int howManyBlackjacks() {
                         int amountOfBlacks=0;
                         for (Player player:players) {
                                 if(player.isBlackJack()){
@@ -112,16 +120,6 @@ public class Game {
                                 }
                         }
                         return amountOfBlacks;
-                }
-
-                /**
-                 * Comprueba si un jugador se ha pasado de 21 puntos, incluida la IA
-                 *
-                 */
-                public void checkBust(){
-                        for(Player player:players)
-                                player.setPlaying(player.getPoints()<21);
-
                 }
 
 
@@ -174,12 +172,12 @@ public class Game {
                         String state="";
                         for (Player player:players){
 
-                                state += player.getName()+"\n";
-                                state += "Puntos: " + player.getPoints()+"\n";
                                 Card[] mano = player.getHand();
                                 for (int j=0;j< mano.length && mano[j]!=null ;j++){
                                         state += mano[j]+"\n";
                                 }
+                                state += player.getName()+"\n";
+                                state += "Puntos: " + player.getPoints()+"\n";
                                 state+="\n";
                         }
                         return state;
@@ -206,7 +204,7 @@ public class Game {
 
         /**
          * Calcula los puntos de cada una de las manos del jugador y se los asigna.
-         * Es una función diseñada para ir recalculando a lo largo de la partida los puntos de cada jugador.
+         * Es una función diseñada para ir recalculando los puntos en el turno de los jugadores, los puntos de cada jugador.
          */
         public void calculatePoints(){
                         for (Player player : players) {
@@ -219,7 +217,20 @@ public class Game {
                         }
 
 
+        }
+
+        /**
+         * Recalcula los puntos del jugador para averiguar si hay blackjack o no.
+         * Esta función la he diseñado para recalcular los puntos si hay un blackjack (AÑADIR QUE RECALCULE PUNTOS SI TIENE UN AS)
+         */
+        public void reCalculatePointsIfBlackjack(){
+                for (Player player : players) {
+                        if(player.isBlackJack())
+                                player.setPoints(21);
+
                 }
+
+        }
 
         /**
          * Asigna los nombres a los jugadores
@@ -261,10 +272,20 @@ public class Game {
                 int howManyWinners=0;
 
                 for (Player player:players) {
-                        if(player.getPoints()==maxScore)
+                        if(player.getPoints()==maxScore || player.isBlackJack())
                                 howManyWinners++;
                 }
 
                 return howManyWinners;
+        }
+
+        public void resetValues(){
+            for (Player player:players) {
+                    player.setPoints(0);
+                    player.setBlackJack(false);
+                    player.setPlaying(true);
+                Arrays.fill(player.getHand(), null);
+            }
+
         }
 }
