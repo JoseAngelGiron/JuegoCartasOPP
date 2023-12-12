@@ -2,8 +2,9 @@ package Test;
 
 
 import Model.Deck;
-import Model.Player;
 import Model.Game;
+import Model.Player;
+
 
 import java.util.Arrays;
 import java.util.Scanner;

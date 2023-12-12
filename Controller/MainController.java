@@ -54,6 +54,9 @@ public class MainController {
                     repetir = Menu.selectAnotherRound();
 
                 } while (!Objects.equals(repetir, "n"));
+                String print = Menu.printResults();
+                if(Objects.equals(print, "s"))
+                    printResults(game);
 
                 break;
             case 2:
@@ -72,7 +75,13 @@ public class MainController {
     public static void stateOfPlay(Game game){
         game.calculatePoints();
         game.updateBlackJack();
-        System.out.println(game.stateOfGame());
+        System.out.println("Se estan repartiendo las cartas.....");
+        try{
+            Thread.sleep(2500);
+            System.out.println(game.stateOfGame());
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -163,12 +172,12 @@ public class MainController {
         /* Con esta instrucción valoro si la IA ya tiene un blackjack o si ya hay un blackjack por parte de alguno de los jugadores,
             en cuyo caso, no pide cartas, bien porque ya ha ganado o ya ha perdido, respectivamente.
          */
-        //
-        if(!game.isBlackJack())
-            while ( game.getPlayers()[0].getPoints()<maxScore){
-            game.playDealerTurn(game);
 
+
+            while (game.getPlayers()[0].getPoints()<maxScore) {
+                game.playDealerTurn(game);
             }
+
         System.out.println("La mano de la IA es: ");
         System.out.println(game.returnHand(game.getPlayers()[0]));
 
@@ -216,11 +225,19 @@ public class MainController {
     public static <IOException> void printResults(Game game){
 
         // Especifica la ruta del archivo en el que deseas escribir
-        String rutaArchivo = "C://Users.txt";
+        String rutaArchivo = ".//Users.txt";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
+            String jugadores =      "\"  RRRR    AAAAA  NNN   N   K   K  III  NNN   N   GGGG  \n" +
+                                    "    R   R   A   A  N N   N   K  K     I   N N   N  G      \n" +
+                                    "    RRRR    AAAAA  N  N  N   K K      I   N  N  N  G  GGG \n" +
+                                    "    R R     A   A  N   N N   K  K     I   N   N N  G    G \n" +
+                                    "    R  RR   A   A  N    NN   K   K  III    N    NN  GGGG  \n\n\n";
+            for (Player player: game.getPlayers()) {
+                jugadores += player.getName() + " Ha ganado: " + player.getWinner()+ " partidas \n";
+            }
 
-            bw.write("Hola, esto es una línea escrita en Java.");
+            bw.write(jugadores);
 
 
             System.out.println("Se ha escrito en el archivo correctamente.");

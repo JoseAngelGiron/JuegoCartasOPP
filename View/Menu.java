@@ -20,19 +20,24 @@ public class Menu {
         }
 
         public static int selectOption(){
-                System.out.println("********** ¿Que desea hacer a continuación? **********");
-                System.out.println("1. Pasar");
-                System.out.println("2. Plantarse");
-                System.out.println("3. Ver tu mano");
-                System.out.println("4. Ver el estado de la partida");
-                System.out.println("5. Pedir otra carta");
-                return IO.readInt2("Seleccione que quiere hacer a continuación: ", 1, 5);
+                try {
+                        Thread.sleep(2500);
+                        System.out.println("********** ¿Que desea hacer a continuación? **********");
+                        System.out.println("1. Pasar");
+                        System.out.println("2. Plantarse");
+                        System.out.println("3. Ver tu mano");
+                        System.out.println("4. Ver el estado de la partida");
+                        System.out.println("5. Pedir otra carta");
+                        return IO.readInt2("Seleccione que quiere hacer a continuación: ", 1, 5);
+                }catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                }
         }
         public static String selectAnotherRound(){
                 return IO.readOption("¿Desea jugar otra ronda?");
 
-
-
         }
-
+        public static String printResults(){
+                return IO.readOption("¿Desea imprimir el resultado de los ganadores?");
+        }
 }

@@ -31,12 +31,13 @@ public class Card {
 
     @Override
     public String toString() {
-        return "\n___________ \n" +
-                "|"+figure+"         |\n" +
-                "|   "+suit+"     |\n" +
-                "|   "+value+"    |\n" +
-                "|        "+figure+" |\n" +
-                " ‾‾‾‾‾‾‾‾‾‾  ";
+        return "┌───────────┐\n" +
+                "│ "+suit+"      "+figure+"  │\n" +
+                "│          │\n" +
+                "│    " + value + "     │\n" +
+                "│          │\n" +
+                "│ " +figure+ "      "+ suit +"  │\n" +
+                "└───────────┘";
     }
 
     @Override

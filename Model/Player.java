@@ -23,6 +23,7 @@ public class Player {
 
 
     public Player(int points, String name, boolean blackJack,  boolean isPlaying, int winner) {
+
         this.points = points;
         this.name = name;
         this.blackJack = blackJack;
