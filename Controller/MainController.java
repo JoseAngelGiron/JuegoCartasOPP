@@ -75,26 +75,28 @@ public class MainController {
     public static void stateOfPlay(Game game){
         game.calculatePoints();
         game.updateBlackJack();
-        System.out.println("Se estan repartiendo las cartas.....");
+
         try{
-            Thread.sleep(2500);
+            Thread.sleep(320);
+            System.out.println("Se estan repartiendo las cartas.....");
+            Thread.sleep(320);
             System.out.println(game.stateOfGame());
         } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+
         }
 
     }
 
     public static void step1(Game game){
 
-        //Pedimos la cantidad de jugadores y se la damos a game
+
         int numberOfPlayers = Menu.selectNPlayers();
         game.addPlayers(numberOfPlayers);
-        //Pedimos nombres y los validamos, si son válidos, los añadimos, si no, volvemos a pedir dicho nombre
+
         int count=0;
         do{
 
-            String name =Menu.selectNamePlayer();
+            String name =Menu.selectNamePlayer(count);
             boolean validName =game.checkNames(name);
             if(validName){
                 game.addNamePlayer(name);
@@ -116,34 +118,65 @@ public class MainController {
                     playerTurn++;
                 }
             }while (!validTurn);
-            System.out.println("Jugador "+ game.getPlayers()[playerTurn].getName() + ": ");
+            try{
+                Thread.sleep(320);
+                System.out.println(game.getPlayers()[playerTurn].getName() +" es tu turno: \n");
+
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             int option = Menu.selectOption();
             game.playPlayerTurn(option, game, playerTurn);
 
             switch (option){
                 case 1:
-                    System.out.println("Has pasado turno");
+                    try{
+                        Thread.sleep(320);
+                        System.out.println("Has pasado turno, veremos los resultados cuando acabe la ronda");
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     playerTurn++;
                     break;
                 case 2:
                     System.out.println("Te has plantado. Se calcularan tus puntos y se te mostrara el resultado.");
                     System.out.println(game.getPlayers()[playerTurn++].getPoints());
-                    //System.out.println(game.checkBust());
+
                     break;
                 case 3: // ver tu mano
-                    System.out.println("Este es el estado actual de tu mano:");
-                    System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                    try {
+                        Thread.sleep(530);
+                        System.out.println("Este es el estado actual de tu mano:");
+                        Thread.sleep(300);
+                        System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case 4: // ver el estado de la partida
                     stateOfPlay(game);
                     break;
-                case 5:// Pedir otra carta (aquí le muestro su mano y sus puntos actuales)
-                    System.out.println("Aqui tienes !! tus cartas actualmente son:");
-                    System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                case 5:
+                    try {
+                        Thread.sleep(530);
+                        System.out.println("Aqui tienes !! tus cartas actualmente son:");
+                        Thread.sleep(320);
+                        System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+
                     game.updateBlackJack();
 
                     if(game.getPlayers()[playerTurn].getPoints()>21) {
-                        System.out.println("Te has pasado de 21, y has sido eliminado");
+                        try {
+                            Thread.sleep(520);
+                            System.out.println("Te has pasado de 21, y has sido eliminado");
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+
                         playerTurn++;
                     }
                     break;
