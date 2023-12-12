@@ -146,7 +146,7 @@ public class Game {
     /**
      * Esta función se encarga de comprobar nombres
      *
-     * @return devuelve un arreglo de Strings con los jugadores
+     * @return devuelve un arreglo de Strings con los jugadores.
      */
     public boolean checkNames(String name) {
         boolean validName = true;
