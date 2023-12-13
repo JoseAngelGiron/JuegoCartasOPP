@@ -22,11 +22,11 @@ public class MainController {
                 option = Menu.mainMenu();
                 mainController(option);
 
-                if(option>2 || option<1)
+                if(option>3 || option<1)
                     System.out.println("La opción seleccionada no esta contemplada, pruebe de nuevo por favor");
 
 
-        }while(option!=2);
+        }while(option!=3);
 
     }
 
@@ -46,9 +46,6 @@ public class MainController {
                     stateOfPlay(game);
 
                     step2PlayersTurn(game);
-                    for (Player player: game.getPlayers()) {
-                        System.out.println(player.getWinner());
-                    }
                     int maxScore = step3IAsTurn(game);
                     showEndOfGame(game, maxScore);
                     repetir = Menu.selectAnotherRound();
@@ -60,9 +57,11 @@ public class MainController {
 
                 break;
             case 2:
+                Menu.rules();
+                break;
+            case 3:
                 System.out.println("Ha elegido salir del casino. ¡Que pase buen día!  ");
                 break;
-
 
         }
 
@@ -110,14 +109,9 @@ public class MainController {
 
     public static void step2PlayersTurn(Game game){
         int playerTurn = 1;
-        boolean validTurn = true;
+
         do {
-            do {
-                if (!game.getPlayers()[playerTurn].isPlaying()) {
-                    validTurn = false;
-                    playerTurn++;
-                }
-            }while (!validTurn);
+
             try{
                 Thread.sleep(320);
                 System.out.println(game.getPlayers()[playerTurn].getName() +" es tu turno: \n");
@@ -139,12 +133,8 @@ public class MainController {
 
                     playerTurn++;
                     break;
-                case 2:
-                    System.out.println("Te has plantado. Se calcularan tus puntos y se te mostrara el resultado.");
-                    System.out.println(game.getPlayers()[playerTurn++].getPoints());
 
-                    break;
-                case 3: // ver tu mano
+                case 2:
                     try {
                         Thread.sleep(530);
                         System.out.println("Este es el estado actual de tu mano:");
@@ -154,10 +144,10 @@ public class MainController {
                         throw new RuntimeException(e);
                     }
                     break;
-                case 4: // ver el estado de la partida
+                case 3:
                     stateOfPlay(game);
                     break;
-                case 5:
+                case 4:
                     try {
                         Thread.sleep(530);
                         System.out.println("Aqui tienes !! tus cartas actualmente son:");
@@ -258,10 +248,10 @@ public class MainController {
     public static <IOException> void printResults(Game game){
 
         // Especifica la ruta del archivo en el que deseas escribir
-        String rutaArchivo = ".//Users.txt";
+        String rutaArchivo = ".//RankingBlackjack.txt";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
-            String jugadores =      "\"  RRRR    AAAAA  NNN   N   K   K  III  NNN   N   GGGG  \n" +
+            String jugadores =      "    RRRR    AAAAA  NNN   N   K   K  III  NNN   N   GGGG  \n" +
                                     "    R   R   A   A  N N   N   K  K     I   N N   N  G      \n" +
                                     "    RRRR    AAAAA  N  N  N   K K      I   N  N  N  G  GGG \n" +
                                     "    R R     A   A  N   N N   K  K     I   N   N N  G    G \n" +

@@ -12,7 +12,7 @@ public class Game {
     private Deck deck;
     // java, MVC,
     // Como pasa de una pantalla a otra
-    // Todo lo que me interese comentar de mejoras
+
     private boolean isBlackJack;
 
     // Constructores
@@ -223,11 +223,28 @@ public class Game {
      * Esta función la he diseñado para recalcular los puntos si hay un blackjack (AÑADIR QUE RECALCULE PUNTOS SI TIENE UN AS)
      */
     public void reCalculatePointsIfBlackjack() {
+        boolean as = false;
+
         for (Player player : players) {
             if (player.isBlackJack())
                 player.setPoints(21);
 
         }
+
+        for (Player player:players) {
+            as = false;
+
+            for (int i=0;i<=player.getHand().length && player.getHand()[i] != null;i++){
+                if(player.getHand()[i].getValue()==1)
+                    as = true;
+                }
+            if(as && player.getPoints()<11) {
+                player.setPoints(player.getPoints() + 10);
+            }
+
+        }
+
+
 
     }
 
@@ -252,11 +269,10 @@ public class Game {
 
     public void playPlayerTurn(int option, Game game, int player) {
 
-        if (option == 2) {//Pasar   //Plantarse
+        if (option == 1) {
             players[player].setPlaying(false);
             calculatePoints();
-        } else if (option == 5) {
-            //Pedir otra carta
+        } else if (option == 4) {
             game.deck.dealACard(players[player]);
             calculatePoints();
         }
