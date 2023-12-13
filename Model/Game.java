@@ -297,6 +297,10 @@ public class Game {
 
     }
 
+    /**
+     * Función que averigua cual es la máxima puntuación dentro de la partida
+     * @return la puntuación máxima de entre todos los jugadores
+     */
     public int calculateMaxPoints(){
         int maxPoints=0;
 

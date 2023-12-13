@@ -4,8 +4,12 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class IO {
-
-        public static int readInt(String msg) {
+    /**
+     * Función que recibe un mensaje y permite introducir un número
+     * @param  msg que se va a imprimir por pantalla
+     * @return la opción que le hemos dado por teclado
+     */
+    public static int readInt(String msg) {
             Scanner teclado = new Scanner(System.in);
             System.out.print(msg + ": ");
             int opcionteclado = -1;
@@ -18,6 +22,14 @@ public class IO {
             return opcionteclado;
         }
 
+    /**
+     * Función que recibe un mensaje por pantalla que va a imprimir y 2 numeros, un min y un max con el cual usara para validar el número que
+     * se le introduce
+     * @param msg un mensaje que mostrara por pantalla
+     * @param nMin número que funcionara como tope por mínimo
+     * @param nMax numero que funcionara como tope máximo
+     * @return un numero entre nMin y nMax
+     */
         public static int readInt2(String msg, int nMin, int nMax) {
             Scanner teclado = new Scanner(System.in);
 
@@ -37,8 +49,12 @@ public class IO {
 
         }
 
-
-        public static String readString(String msg){
+    /**
+     * Función que imprime un mensaje y permite introducir otro que se devolvera
+     * @param msg el mensaje que se va a imprimir
+     * @return el mensaje que nosotros introduzcamos
+     */
+    public static String readString(String msg){
             System.out.print(msg + ": ");
             Scanner teclado = new Scanner(System.in);
             String mensaje;
@@ -47,11 +63,16 @@ public class IO {
             return mensaje;
         }
 
-
-        public static String readOption(String msg){
+    /**
+     * Función que imprime un mensaje por pantalla y permite escribir una cadena de texto
+     * Se asegura que introduzcamos alguna opción entre las que se contemplan
+     * @param msg el mensaje que se va a imprimir
+     * @return la cadena de texto que le hemos introducido por teclado.
+     */
+    public static String readOption(String msg){
 
             Scanner teclado = new Scanner(System.in);
-            String option = "";
+            String option;
 
             do {
                 System.out.println(msg + ": ");

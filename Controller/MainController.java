@@ -214,10 +214,18 @@ public class MainController {
 
         while (game.getPlayers()[0].getPoints()<game.calculateMaxPoints()) {
                 game.dealerReceiveACard();
+
+        }
+        try{
+            Thread.sleep(320);
+            System.out.println("La mano de la IA es: ");
+            Thread.sleep(520);
+            System.out.println(game.returnHand(game.getPlayers()[0]));
+
+        }catch (InterruptedException e) {
+
         }
 
-        System.out.println("La mano de la IA es: ");
-        System.out.println(game.returnHand(game.getPlayers()[0]));
 
         if(game.getPlayers()[0].getPoints()>21) {
             System.out.println("La IA se ha pasado de 21, y ha sido eliminada");

@@ -1,8 +1,12 @@
 package View;
 
 public class Menu {
+        /**
+         * Función que muestra el menu principal
+         * @return devuelve la opción que se le introduce por teclado, como consecuencia de la llamada que hace a la función readInt
+         */
         public static int mainMenu() {
-                String casino = ".######.....###.....######..####.##....##..#######.\n" +
+                String casino = ".######.....###.....######..####.##....##...#######.\n" +
                                 ".##....##...##.##...##....##..##..###...##.##.....##\n" +
                                 ".##........##...##..##........##..####..##.##.....##\n" +
                                 ".##.......##.....##..######...##..##.##.##.##.....##\n" +
@@ -25,6 +29,10 @@ public class Menu {
 
 
         }
+
+        /**
+         * Función que imprime por pantalla las reglas del juego
+         */
         public static void rules(){
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
@@ -41,16 +49,30 @@ public class Menu {
 
         }
 
+        /**
+         * Función que permite seleccionar el número de jugadores
+         * @return un número entre 1 y 4, como consecuencia de la llamada a la función readInt2
+         */
         public static int selectNPlayers(){
 
                 return IO.readInt2("Inserte un número de jugadores, mínimo 1 y máximo 4", 1,4);
         }
 
+        /**
+         * Función que sirve para obtener el nombre del jugador
+         * @param nPlayer recibe el número del jugador
+         * @return el nombre del jugador
+         */
         public static String selectNamePlayer(int nPlayer){
                 int count = nPlayer+1;
                 return IO.readString("Inserte el nombre del jugador "+count);
         }
 
+        /**
+         * Función para mostrar el submenu del turno del jugador.
+         *
+         * @return la opción introducida, con el llamado a la función readInt2
+         */
         public static int selectOption(){
                 try {
                         Thread.sleep(1000);
@@ -70,23 +92,23 @@ public class Menu {
 
 
         }
+
+        /**
+         * Función que sirve para mostrar un mensaje y devolver una opción
+         * @return una opción concreta, como consecuencia del llamado a la función readOption
+         */
         public static String selectAnotherRound(){
-                try{
-                        Thread.sleep(320);
-                        return IO.readOption("¿Desea jugar otra ronda? pulse 's' para si y 'n' para no");
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                return IO.readOption("¿Desea jugar otra ronda? pulse 's' para si y 'n' para no");
+
 
 
         }
-        public static String printResults(){
-                try {
-                        Thread.sleep(320);
-                        return IO.readOption("¿Desea imprimir el resultado de los ganadores? pulse 's' para si y 'n' para no");
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
 
+        /**
+         * Función que sirve para mostrar un mensaje y devolver una opción
+         * @return un carácter texto en concreto, como consecuencia del llamado a la función readOption
+         */
+        public static String printResults(){
+                return IO.readOption("¿Desea imprimir el resultado de los ganadores? pulse 's' para si y 'n' para no");
         }
 }
