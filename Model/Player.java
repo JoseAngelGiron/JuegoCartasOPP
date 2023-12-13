@@ -10,36 +10,24 @@ public class Player {
     private String name;
 
     private boolean blackJack;
-    private boolean isPlaying;
 
     private int winner;
 
 
     public Player(){
-        this( 0,"", false, true, 0);
+        this( 0,"", false, 0);
 
     }
 
 
 
-    public Player(int points, String name, boolean blackJack,  boolean isPlaying, int winner) {
+    public Player(int points, String name, boolean blackJack, int winner) {
 
         this.points = points;
         this.name = name;
         this.blackJack = blackJack;
-        this.isPlaying = isPlaying;
         this.winner = winner;
 
-    }
-
-
-
-    public boolean isPlaying() {
-        return isPlaying;
-    }
-
-    public void setPlaying(boolean playing) {
-        isPlaying = playing;
     }
 
     public int getPoints() {
@@ -83,7 +71,7 @@ public class Player {
     }
 
     /**
-     * Función de testeo, para comprobar cuantas cartas están vaciás en el mazo
+     * Función de testeo, para comprobar cuantas cartas están vacías en el mazo
      * @return acu, que es la cantidad de cartas en el mazo, es decir, las posiciones que no son nulas
      */
     public  int howManyCardsInDeck(){

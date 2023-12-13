@@ -6,30 +6,25 @@ import java.util.Objects;
 
 
 public class Game {
-    //Atributos
+
     private Player[] players;
 
     private Deck deck;
-    // java, MVC,
-    // Como pasa de una pantalla a otra
 
-    private boolean isBlackJack;
 
-    // Constructores
     public Game() {
-        this(new Player[1], new Deck(), false);
+        this(new Player[1], new Deck());
 
     }
 
 
-    public Game(Player[] players, Deck deck, boolean isBlackJack) {
+    public Game(Player[] players, Deck deck) {
         this.players = players;
         this.deck = deck;
-        this.isBlackJack = isBlackJack;
     }
 
 
-    // Getter and Setters
+
     public Player[] getPlayers() {
         return players;
     }
@@ -46,13 +41,9 @@ public class Game {
         this.deck = deck;
     }
 
-    public boolean isBlackJack() {
-        return isBlackJack;
-    }
 
-    public void setBlackJack(boolean blackJack) {
-        isBlackJack = blackJack;
-    }
+
+
 
 
     @Override
@@ -64,21 +55,19 @@ public class Game {
 
     /**
      * Esta función se encarga de iniciar el juego.
-     * Hace uso de las funciones crear el mazo y repartir cartas.
+     * Hace uso de las funciones crear el mazo y repartir cartas y de resetValues
      */
-    public void startGame(Game game) {
+    public void startGame() {
         resetValues();
         deck.createDeck();
         deck.dealInitialCards(players);
-
-
     }
 
 
     /**
      * Esta función comprueba, tras la 2 cartas iniciales, las manos de los jugadores. Y si obtiene única combinación posible
      * de BlackJack cambia el atributo del jugador de blackJack a True
-     * A partir de cuando el jugador tiene más de 2 cartas, siempre acabaría poniendo el blackjack a true
+     * A partir de cuando el jugador tiene más de 2 cartas, nunca pondrá blackjack a true
      */
     public void updateBlackJack() {
 
@@ -94,31 +83,16 @@ public class Game {
                 acu += cards[j].getValue();
                 if (acu == 11 && j == 1 && as) {
                     player.setBlackJack(true);
-                    setBlackJack(true);
+
 
                 } else {
                     player.setBlackJack(false);
-                    setBlackJack(false);
+
                 }
             }
         }
     }
 
-
-    /**
-     * Comprueba si más de un jugador tiene blackjack. Su utilidad reside en poder valorar empates entre distintos jugadores que tengan un blackjack
-     *
-     * @return amountOfBlacks, la cantidad de blackjacks que se han dado
-     */
-    public int howManyBlackjacks() {
-        int amountOfBlacks = 0;
-        for (Player player : players) {
-            if (player.isBlackJack()) {
-                amountOfBlacks += 1;
-            }
-        }
-        return amountOfBlacks;
-    }
 
 
     /**
@@ -133,9 +107,9 @@ public class Game {
         setPlayers(players);
         for (int i = 0; i < players.length; i++) {
             if (i == 0) {
-                players[i] = new Player(0, "IA", false, true, 0);
+                players[i] = new Player(0, "IA", false, 0);
             } else {
-                players[i] = new Player(0, "", false, true, 0);
+                players[i] = new Player(0, "", false, 0);
             }
 
         }
@@ -146,7 +120,7 @@ public class Game {
     /**
      * Esta función se encarga de comprobar nombres
      *
-     * @return devuelve un arreglo de Strings con los jugadores.
+     * @return devuelve verdadero, si el nombre esta disponible y falso si no cumple con las condiciones impuestas.
      */
     public boolean checkNames(String name) {
         boolean validName = true;
@@ -203,7 +177,7 @@ public class Game {
 
     /**
      * Calcula los puntos de cada una de las manos del jugador y se los asigna.
-     * Es una función diseñada para ir recalculando los puntos en el turno de los jugadores, los puntos de cada jugador.
+     * Es una función diseñada para ir recalculando los puntos en el turno de los jugadores.
      */
     public void calculatePoints() {
         for (Player player : players) {
@@ -219,11 +193,11 @@ public class Game {
     }
 
     /**
-     * Recalcula los puntos del jugador para averiguar si hay blackjack o no.
-     * Esta función la he diseñado para recalcular los puntos si hay un blackjack (AÑADIR QUE RECALCULE PUNTOS SI TIENE UN AS)
+     * Recalcula los puntos del jugador para averiguar si hay blackjack o no, así como si el jugador tiene un AS y su puntuación es menor a 11
+     * Esta función la he diseñado para recalcular los puntos si hay un blackjack
      */
-    public void reCalculatePointsIfBlackjack() {
-        boolean as = false;
+    public void reCalculatePoints() {
+        boolean as;
 
         for (Player player : players) {
             if (player.isBlackJack())
@@ -234,7 +208,7 @@ public class Game {
         for (Player player:players) {
             as = false;
 
-            for (int i=0;i<=player.getHand().length && player.getHand()[i] != null;i++){
+            for (int i=0;i<=player.getHand().length && player.getHand()[i] != null; i++){
                 if(player.getHand()[i].getValue()==1)
                     as = true;
                 }
@@ -267,25 +241,39 @@ public class Game {
 
     }
 
-    public void playPlayerTurn(int option, Game game, int player) {
+    /**
+     *  Esta función se usa para determinar cambios que provienen del controlador.
+     *
+     * @param option la opción, en función de la cual ejecutara
+     * @param player recibe el número del jugador, que usaremos para añadir cartas o verificar si ya no esta jugador
+     */
+    public void playPlayerTurn(int option, int player) {
 
         if (option == 1) {
-            players[player].setPlaying(false);
             calculatePoints();
         } else if (option == 4) {
-            game.deck.dealACard(players[player]);
+            deck.dealACard(players[player]);
             calculatePoints();
         }
 
     }
 
-    public void playDealerTurn(Game game) {
-        game.deck.dealACard(players[0]);
-        game.calculatePoints();
+    /**
+     * Esta función hace que la IA reciba una carta y calcula sus puntos en función de la carta que ha recibido
+     * Hace uso de las funciones dealACard y calculatePoints
+     */
+    public void dealerReceiveACard() {
+        deck.dealACard(players[0]);
+        calculatePoints();
 
     }
 
-    public int calculateWinner(int maxScore) {
+    /**
+     * Esta función calcula los ganadores, su función es la de comprobar si hay un ganador o mas de uno
+     * @param maxScore recibe un entero, que es la puntuación máxima
+     * @return la cantidad de jugadores que coinciden con la puntuación máxima.
+     */
+    public int calculateWinners(int maxScore) {
         int howManyWinners = 0;
 
         for (Player player : players) {
@@ -296,13 +284,27 @@ public class Game {
         return howManyWinners;
     }
 
+    /**
+     * Esta función resetea los valores a por defecto de todos los jugadores, se utiliza al inicio de cada ronda para no tener en cuenta los valores anteriores.
+     * Pero sin tocar los valores de aquellos jugadores que han ganado partidas
+     */
     public void resetValues() {
         for (Player player : players) {
             player.setPoints(0);
             player.setBlackJack(false);
-            player.setPlaying(true);
             Arrays.fill(player.getHand(), null);
         }
 
+    }
+
+    public int calculateMaxPoints(){
+        int maxPoints=0;
+
+        for (Player player: players) {
+            if(player.getPoints() <=21  && player.getPoints()>maxPoints)
+                maxPoints=player.getPoints();
+        }
+
+        return maxPoints;
     }
 }

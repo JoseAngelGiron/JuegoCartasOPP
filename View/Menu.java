@@ -16,10 +16,10 @@ public class Menu {
                 System.out.println("********** Menú **********");
                 System.out.println("1. Iniciar Juego de Blackjack");
                 System.out.println("2. Ver las reglas");
-                System.out.println("3. Salir");
+                System.out.println("3. Salir \n");
 
 
-                System.out.println("Próximamente, mas juegos......");
+                System.out.println("Próximamente, mas juegos......\n");
 
                 return IO.readInt("Elija una opción");
 
@@ -28,19 +28,14 @@ public class Menu {
         public static void rules(){
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
-                System.out.println("|                                                                                                                   |");
                 System.out.println("|                                                    Reglas                                                         |");
-                System.out.println("|                                                                                                                   |");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
-                System.out.println("|1. El objetivo es que de conseguir 21 sin pasarte, si te pasas pierdes. En su defecto, sacar la puntuación mas alta|");
-                System.out.println("|2. El As vale 1, pero si tienes menos de 11, el AS vale 11. La J, Q y la K valen 10                                |");
-                System.out.println("|3. Si tienes 2 cartas y la suma de ambas son 21, tienes un Blackjack, deberías plantarte para intentar ganar       |");
-                System.out.println("|4. La IA siempre intentara superarte, o empatarte, incluso si ello conlleva perder                                 |");
-                System.out.println("|                                                                                                                   |");
-                System.out.println("|                                                                                                                   |");
-                System.out.println("|                                                                                                                   |");
-                System.out.println("|                                                                                                                   |");
+                System.out.println("| 1. El objetivo es que de conseguir 21 sin pasarte, si te pasas pierdes. En su defecto, sacar la puntuación mas alta|");
+                System.out.println("| 2. El As vale 1, pero si tienes menos de 11, el AS vale 11. La J, Q y la K valen 10                                |");
+                System.out.println("| 3. Si tienes 2 cartas y la suma de ambas son 21, tienes un Blackjack, deberías plantarte para intentar ganar       |");
+                System.out.println("| 4. La IA siempre intentara superarte, o empatarte, incluso si ello conlleva perder                                 |");
+                System.out.println("|                                                                                                                    |");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
                 System.out.println("---------------------------------------------------------------------------------------------------------------------");
 
@@ -53,7 +48,7 @@ public class Menu {
 
         public static String selectNamePlayer(int nPlayer){
                 int count = nPlayer+1;
-                return IO.readString("Inserte del jugador "+count);
+                return IO.readString("Inserte el nombre del jugador "+count);
         }
 
         public static int selectOption(){

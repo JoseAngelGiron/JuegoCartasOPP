@@ -41,25 +41,12 @@ public class IO {
         public static String readString(String msg){
             System.out.print(msg + ": ");
             Scanner teclado = new Scanner(System.in);
-            String mensaje = " ";
+            String mensaje;
             mensaje = teclado.nextLine();
 
             return mensaje;
         }
 
-        public static String[] readString2(String msg, int nPlayers){
-                Scanner teclado = new Scanner(System.in);
-                String[] names = new String[nPlayers];
-
-                System.out.println(msg);
-                 for(int i =0;i<nPlayers;i++) {
-                     System.out.println("Introduzca el nombre del jugador: "+ i+1);
-                     names[i] = teclado.nextLine();
-                 }
-
-
-                return names;
-            }
 
         public static String readOption(String msg){
 

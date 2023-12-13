@@ -3,14 +3,14 @@ package Model;
 import java.util.Objects;
 
 public class Card {
-    //Atributos
+
     private int value;
     private String suit;
 
     private String figure;
 
 
-    // Constructores
+
     public Card(){
         this(0," ", " ");
 
@@ -31,13 +31,13 @@ public class Card {
 
     @Override
     public String toString() {
-        return "┌───────────┐\n" +
-                "│ "+suit+"      "+figure+"  │\n" +
-                "│          │\n" +
-                "│    " + value + "     │\n" +
-                "│          │\n" +
-                "│ " +figure+ "      "+ suit +"  │\n" +
-                "└───────────┘";
+        return "┌────────────┐\n" +
+                "│ "+suit+"      "+figure+"   │\n" +
+                "│            │\n" +
+                "│    " + value + "       │\n" +
+                "│            │\n" +
+                "│ " +figure+ "      "+ suit +"   │\n" +
+                "└────────────┘";
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Card {
         Card card = (Card) o;
         return value == card.value && Objects.equals(suit, card.suit);
     }
-    // Getter and Setters
+
     public String getSuit() {
         return suit;
     }
@@ -64,7 +64,7 @@ public class Card {
         this.value = value;
     }
 
-    // Funciones
+
 
 
 

@@ -1,18 +1,14 @@
 package Model;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Random;
-import java.util.Scanner;
+
 
 public class Deck {
 
-    //Atributos
     private Card[] cards;
 
 
-
-    //Constructores
     public Deck(){
         this(new Card[52]);
     }
@@ -20,7 +16,7 @@ public class Deck {
         this.cards = cards;
     }
 
-    // Getter and Setters
+
     public Card[] getCards() {
         return cards;
     }
@@ -35,15 +31,15 @@ public class Deck {
         return "Deck{" + "cards=" + Arrays.toString(cards) + '}';
     }
 
-    // Funciones
+
     /**
-     * Esta función instancia un arreglo de cartas.
-     * Recibe el arreglo de cartas y la instancia con cada uno de los palos de 1 a 13
+     * Esta función instancia el mazo con cada una de las figuras, palos y valores que tiene la baraja del blackjack
+     * arreglo de cartas y la instancia con cada uno de los palos de 1 a 10 y las figuras
      *
      */
     public void createDeck(){
-        String[] suits = {"💎","♠️","♥️","♣"};
-        String[] figures ={"AS","J","Q","K"};
+        String[] suits = {"♦","♠","♥","♣"};
+        String[] figures ={"A","J","Q","K"};
         int index=0;
         for (String suit: suits) {
 
@@ -65,24 +61,7 @@ public class Deck {
     }
     }
 
-    /**
-     * Esta función baraja el arreglo. No devuelva nada porque recibe el arreglo y simplemente lo cambia de posición
-     */
-    public void shuffle(){
 
-        Random rand = new Random();
-
-        // Mezclar el arreglo de forma aleatoria usando el algoritmo de Fisher-Yates
-        for (int i = cards.length - 1; i > 0; i--) {
-            int indiceAleatorio = rand.nextInt(i + 1);
-
-            // Intercambiar los elementos en las posiciones e indiceAleatorio
-            Card temp = cards[i];
-            cards[i] = cards[indiceAleatorio];
-            cards[indiceAleatorio] = temp;
-
-        }
-    }
 
     /**
      *
@@ -114,11 +93,11 @@ public class Deck {
      */
     public void dealACard(Player player){
 
-            int nullPosition = firstNullPosition(player.getHand()); //Busca la primera posición nula en la mano del jugador
-            int cardPosition =  searchCardPosition();// Busca la posición de una carta aleatoria en el mazo
-            Card cardToDeal = cards[cardPosition]; // Cogemos la carta del mazo que vamos a asignar
-            player.getHand()[nullPosition] = cardToDeal; // Asigna dicha carta a la mano del jugador en la primera posición vacía que tiene
-            cards[cardPosition] = null;// Eliminamos la carta del mazo
+            int nullPosition = firstNullPosition(player.getHand());
+            int cardPosition =  searchCardPosition();
+            Card cardToDeal = cards[cardPosition];
+            player.getHand()[nullPosition] = cardToDeal;
+            cards[cardPosition] = null;
 
 
 
@@ -154,8 +133,8 @@ public class Deck {
         int cardPosition;
         Card cardToEvaluate;
         do {
-            cardPosition = (int) (Math.random() * (52)); // devuelve la posición de la carta
-            cardToEvaluate = cards[cardPosition]; // si esto es null, repite la operación
+            cardPosition = (int) (Math.random() * (52));
+            cardToEvaluate = cards[cardPosition];
 
         } while (cardToEvaluate == null);
         return cardPosition;

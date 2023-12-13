@@ -6,15 +6,17 @@ import View.Menu;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
 import java.util.Objects;
 
 
 public class MainController {
 
-    static Game game;
+    public static Game game;
 
+    /**
+     * Esta función inicia la aplicación. Se encarga de llamar a la vista inicial para mostrar el menu principal
+     * y pasarle la opción que ha introducido el usuario a la función del controlador principal
+     */
     public static void startApp(){
         int option =-1;
         do{
@@ -30,27 +32,30 @@ public class MainController {
 
     }
 
+    /**
+     * La función de controlador principal, el cual se encarga de poner en marcha el juego, mostrar reglas y mostrar el mensaje de despedida
+     * @param option recibe un entero, en este caso opción, para hacer cada una de las opciones
+     */
     public static void mainController(int option) {
 
 
         switch (option) {
             case 1:
-                //Instanciamos el nuevo juego
                 game = new Game();
                 step1(game);
 
-                String repetir;
+                String repeat;
                 do {
 
-                    game.startGame(game);
+                    game.startGame();
                     stateOfPlay(game);
 
                     step2PlayersTurn(game);
-                    int maxScore = step3IAsTurn(game);
-                    showEndOfGame(game, maxScore);
-                    repetir = Menu.selectAnotherRound();
+                    step3IAsTurn(game);
+                    showEndOfGame(game);
+                    repeat = Menu.selectAnotherRound();
 
-                } while (!Objects.equals(repetir, "n"));
+                } while (!Objects.equals(repeat, "n"));
                 String print = Menu.printResults();
                 if(Objects.equals(print, "s"))
                     printResults(game);
@@ -69,8 +74,11 @@ public class MainController {
     }
 
 
-
-
+    /**
+     * Esta función calcula los puntos iniciales y actualiza la opción de blackjack si algún jugador tiene dicha combinación en su mano.
+     * Muestra también el estado inicial de la partida. Hace uso de las funciones calculatePointes, updateBlackjack y stateOfGame
+     * @param game que es el objeto de la clase game instanciamos al inicio del juego y que contiene los datos sobre la partida y jugadores.
+     */
     public static void stateOfPlay(Game game){
         game.calculatePoints();
         game.updateBlackJack();
@@ -86,6 +94,11 @@ public class MainController {
 
     }
 
+    /**
+     * Ejecuta el 1º paso del juego, en este pedir número de jugadores y validar los nombres de los jugadores. Llama tanto a la vista para introducir nombres
+     * como a la función checkNames para validar nombre.
+     * @param game que es un objeto de la clase game sobre el que se modifican datos
+     */
     public static void step1(Game game){
 
 
@@ -107,6 +120,12 @@ public class MainController {
 
     }
 
+    /**
+     * Esta función ejecuta el turno de los jugadores, pasando por todos y cada uno de ellos y les permite ejecutar acciones
+     * Hace uso de función de la vista, para introducir la opción que quiera el usuario y otras funciones de game para recuperar información
+     * que mostrar al usuario
+     * @param game recibe un objeto de la game, sobre el que hará calculos
+     */
     public static void step2PlayersTurn(Game game){
         int playerTurn = 1;
 
@@ -117,18 +136,18 @@ public class MainController {
                 System.out.println(game.getPlayers()[playerTurn].getName() +" es tu turno: \n");
 
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+
             }
             int option = Menu.selectOption();
-            game.playPlayerTurn(option, game, playerTurn);
+            game.playPlayerTurn(option, playerTurn);
 
             switch (option){
                 case 1:
                     try{
                         Thread.sleep(320);
-                        System.out.println("Has pasado turno, veremos los resultados cuando acabe la ronda");
+                        System.out.println("Has terminado tu turno, cuando acabe la ronda veremos los resultados.");
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+
                     }
 
                     playerTurn++;
@@ -141,7 +160,7 @@ public class MainController {
                         Thread.sleep(300);
                         System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+
                     }
                     break;
                 case 3:
@@ -154,7 +173,7 @@ public class MainController {
                         Thread.sleep(320);
                         System.out.println(game.returnHand(game.getPlayers()[playerTurn]));
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+
                     }
 
                     game.updateBlackJack();
@@ -164,7 +183,7 @@ public class MainController {
                             Thread.sleep(520);
                             System.out.println("Te has pasado de 21, y has sido eliminado");
                         } catch (InterruptedException e) {
-                            throw new RuntimeException(e);
+
                         }
 
                         playerTurn++;
@@ -181,25 +200,21 @@ public class MainController {
 
     }
 
-    public static int step3IAsTurn(Game game) {
+    /**
+     * Esta función ejecuta el turno de la IA. Hace uso de las funciones de recalcular puntos calculateMaxPoints.
+     * @param game que es un objeto de la clase game, sobre el que se harán calculos
+     */
+    public static void step3IAsTurn(Game game) {
+        game.reCalculatePoints();
 
-        int maxScore =0;
-        game.reCalculatePointsIfBlackjack();
 
-        for (Player player:game.getPlayers()) {
-            if(player.getPoints() <=21  && player.getPoints()>maxScore)
-                maxScore=player.getPoints();
-        }
+
+
         System.out.println("La IA va a pedir cartas..... o no...");
 
-        /* Con esta instrucción valoro si la IA ya tiene un blackjack o si ya hay un blackjack por parte de alguno de los jugadores,
-            en cuyo caso, no pide cartas, bien porque ya ha ganado o ya ha perdido, respectivamente.
-         */
-
-
-            while (game.getPlayers()[0].getPoints()<maxScore) {
-                game.playDealerTurn(game);
-            }
+        while (game.getPlayers()[0].getPoints()<game.calculateMaxPoints()) {
+                game.dealerReceiveACard();
+        }
 
         System.out.println("La mano de la IA es: ");
         System.out.println(game.returnHand(game.getPlayers()[0]));
@@ -208,64 +223,66 @@ public class MainController {
             System.out.println("La IA se ha pasado de 21, y ha sido eliminada");
 
         }
-        return maxScore;
+
     }
 
-    public static void showEndOfGame(Game game, int maxScore) {
-        int howManyWinners = game.calculateWinner(maxScore);
-        int amountOfBlackjacks = game.howManyBlackjacks();
+    /**
+     * Esta función muestra el resultado del final del juego
+     * @param game que es un objeto de la clase game, sobre el que se harán calculos
+     */
+    public static void showEndOfGame(Game game) {
 
-        if(amountOfBlackjacks==1){
-            for (Player player: game.getPlayers()) {
-                if(player.isBlackJack())
-                    System.out.println("El ganador, que ademas tiene blackjack, es : "+ player.getName() +" !!");
-                player.setWinner(1);
-            }
-        } else if (amountOfBlackjacks>=2) {
-            System.out.println("Hay mas de un jugador con un blackjack, y por tanto hay un empate entre:");
-            for (Player player: game.getPlayers()) {
-                System.out.println(player.getName());
-            }
-        }else if(howManyWinners==0){
+        game.reCalculatePoints();
+        int howManyWinners = game.calculateWinners(game.calculateMaxPoints());
+
+
+
+        if(howManyWinners==0){
             System.out.println("No ha habido ganadores, todos los jugadores se pasaron de 21.");
         }else if (howManyWinners==1) {
             for (Player player: game.getPlayers()) {
-                if(player.getPoints()==maxScore ) {
-                    System.out.println("El ganador es: " + player.getName() + "!!");
+                if(player.getPoints()==game.calculateMaxPoints() ) {
+                    System.out.println("El ganador es: " + player.getName() + " con " +player.getPoints()+"  puntos!");
                     player.setWinner(1);
+                    if (player.isBlackJack())
+                        System.out.println("Ademas, lo ha hecho con un blackjack :)");
                 }
             }
         }else{
             System.out.println("Ha habido un empate entre los jugadores: ");
             for (Player player: game.getPlayers()) {
-                if (player.getPoints()==maxScore)
+                if (player.getPoints()== game.calculateMaxPoints())
                     System.out.println(player.getName());
             }
 
         }
     }
 
-    public static <IOException> void printResults(Game game){
+    /**
+     * Esta función imprime los resultados de cuantas victorias ha tenido cada jugador
+     * @param game sobre el que se harán los calculos
+     */
+    public static void printResults(Game game){
 
-        // Especifica la ruta del archivo en el que deseas escribir
+
         String rutaArchivo = ".//RankingBlackjack.txt";
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivo))) {
             String jugadores =      "    RRRR    AAAAA  NNN   N   K   K  III  NNN   N   GGGG  \n" +
-                                    "    R   R   A   A  N N   N   K  K     I   N N   N  G      \n" +
-                                    "    RRRR    AAAAA  N  N  N   K K      I   N  N  N  G  GGG \n" +
-                                    "    R R     A   A  N   N N   K  K     I   N   N N  G    G \n" +
-                                    "    R  RR   A   A  N    NN   K   K  III    N    NN  GGGG  \n\n\n";
+                                    "    R   R   A   A  N N   N   K  K    I   N N   N  G      \n" +
+                                    "    RRRR    AAAAA  N  N  N   K K     I   N  N  N  G  GGG \n" +
+                                    "    R R     A   A  N   N N   K  K    I   N   N N  G    G \n" +
+                                    "    R  RR   A   A  N    NN   K   K  III  N    NN   GGGG  \n\n\n";
             for (Player player: game.getPlayers()) {
-                jugadores += player.getName() + " Ha ganado: " + player.getWinner()+ " partidas \n";
+                jugadores += player.getName() + " Ha ganado: " + player.getWinner()+ " partidas \n\n";
             }
 
             bw.write(jugadores);
 
 
-            System.out.println("Se ha escrito en el archivo correctamente.");
+            System.out.println("Se ha escrito en el archivo correctamente. \n\n");
         }catch (java.io.IOException e) {
-            throw new RuntimeException(e);
+
         }
     }
 }
