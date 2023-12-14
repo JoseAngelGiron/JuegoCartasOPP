@@ -139,7 +139,7 @@ public class MainController {
 
             }
             int option = Menu.selectOption();
-            game.playPlayerTurn(option, playerTurn);
+            game.playerTurn(option, playerTurn);
 
             switch (option){
                 case 1:
@@ -212,10 +212,7 @@ public class MainController {
 
         System.out.println("La IA va a pedir cartas..... o no...");
 
-        while (game.getPlayers()[0].getPoints()<game.calculateMaxPoints()) {
-                game.dealerReceiveACard();
-
-        }
+        game.dealerWantsCards();
         try{
             Thread.sleep(320);
             System.out.println("La mano de la IA es: ");

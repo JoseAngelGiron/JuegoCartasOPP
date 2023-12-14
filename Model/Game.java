@@ -193,8 +193,8 @@ public class Game {
     }
 
     /**
-     * Recalcula los puntos del jugador para averiguar si hay blackjack o no, así como si el jugador tiene un AS y su puntuación es menor a 11
-     * Esta función la he diseñado para recalcular los puntos si hay un blackjack
+     * Recalcula los puntos del jugador para averiguar si hay blackjack o no y establecer los puntos que corresponden, así como si el jugador tiene un AS y su puntuación es menor a 11
+     * Esta función está diseñada para recalcular puntos en el momento que la IA entra en juego
      */
     public void reCalculatePoints() {
         boolean as;
@@ -247,7 +247,7 @@ public class Game {
      * @param option la opción, en función de la cual ejecutara
      * @param player recibe el número del jugador, que usaremos para añadir cartas o verificar si ya no esta jugador
      */
-    public void playPlayerTurn(int option, int player) {
+    public void playerTurn(int option, int player) {
 
         if (option == 1) {
             calculatePoints();
@@ -265,6 +265,7 @@ public class Game {
     public void dealerReceiveACard() {
         deck.dealACard(players[0]);
         calculatePoints();
+
 
     }
 
@@ -310,5 +311,16 @@ public class Game {
         }
 
         return maxPoints;
+    }
+
+    /**
+     * Función que hace que la IA pida cartas mientras este por debajo de los puntos del jugador con mas puntos
+     * Hace uso de las funciones calculateMaxPoints y dealerWantsCards
+     */
+    public void dealerWantsCards(){
+        while (getPlayers()[0].getPoints()<calculateMaxPoints()) {
+            dealerReceiveACard();
+            reCalculatePoints();
+        }
     }
 }
